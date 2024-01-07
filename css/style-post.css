@@ -1,0 +1,267 @@
+/* Seção de CRIAPOST */
+.form {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    max-width: 100%;
+    padding: 0.5rem !important;
+}
+
+.form-control,
+textarea,
+.tag-container,
+.tag-input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: auto;
+    margin-top: 2px;
+    background-color: #f3f3f3;
+}
+
+::-webkit-file-upload-button {
+    cursor: pointer;
+    color: #39f;
+    text-transform: capitalize;
+    border-radius: 25px;
+    background-color: transparent;
+    border: 2px solid #39f;
+    position: relative;
+    padding: 4px 15px;
+    z-index: 1;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+input[type="file"] {
+    transition: 0.5s;
+}
+
+input[type="file"]:hover {
+    cursor: pointer;
+    color: var(--main-color-black);
+}
+
+input[type="file"]:hover::-webkit-file-upload-button {
+    background-color: #39f;
+    cursor: pointer !important;
+    color: #eee;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+textarea {
+    font-size: 14px;
+    resize: vertical;
+    height: 150px;
+}
+
+textarea:focus,
+input:focus {
+    outline-color: #39f;
+    outline-offset: 1px;
+}
+
+.btn-primary {
+    border: 1px solid #39f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #39f;
+    font-weight: bold;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn-outline-danger {
+    border: 1px solid #a8a8a8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #d3d3d3;
+    font-weight: bold;
+    font-weight: 400;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Seção de LOGIN */
+
+.form-login {
+    max-width: 500px;
+    margin: 0px auto;
+}
+
+.form-control-login {
+    border: 1px solid #ddd;
+    outline-offset: 1px;
+    outline-color: #39f;
+    border-radius: 5px;
+    padding: 10px;
+    width: 95%;
+    background-color: #f3f3f3;
+}
+
+.form-control-login:focus {
+    outline: none;
+    border-color: #bcbcbc;
+}
+
+.btn-entrar {
+    width: 100%;
+    border: 1px solid #39f;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #39f;
+    font-weight: bold;
+    font-weight: 500;
+    transition: 0.5s;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn-entrar:hover {
+    border-color: #39f;
+    background-color: rgb(39, 114, 189);
+    color: #fff;
+}
+
+.divider {
+    border-bottom: 1px #ddd solid;
+    margin-bottom: 10px;
+}
+
+.form-login {
+    padding: 1.5rem;
+}
+
+.form-login input {
+    margin-top: 2px;
+}
+
+.form-login .col b {
+    color: #1b1b1b;
+    font-size: 20px;
+}
+
+.form h1 {
+    text-transform: uppercase;
+}
+
+.form input:focus,
+textarea:focus {
+    border: 1px solid #bcbcbc;
+    outline: none;
+}
+
+@media (min-width: 900px) {
+    .form {
+        padding-left: 3.2rem !important;
+    }
+
+    .form-control,
+    textarea,
+    .tag-container,
+    .tag-input {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        width: 60%;
+        margin-top: 2px;
+        background-color: #f3f3f3;
+    }
+}
+
+@media (max-width: 900px) {
+    .form {
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        max-width: 100%;
+        padding-left: 5% !important;
+    }
+
+    .form-control,
+    textarea,
+    .tag-container {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 2px;
+        width: 90%;
+        background-color: #f3f3f3;
+    }
+}
+
+.logo-fp {
+    filter: invert(80%);
+}
+
+.mb-2 {
+    margin-bottom: 5px;
+}
+
+.btn-small-textarea {
+    margin-top: 5px;
+    border: 1px solid #a8a8a8;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #d3d3d3;
+    font-weight: bold;
+    font-weight: 400;
+    font-size: 12px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.btn-small-textarea:hover {
+    background-color: rgba(180, 180, 180, 0.454);
+    color: #39f;
+}
+
+.btn-voltar {
+    border: 1px solid #707070;
+    padding: 5px 5px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #707070;
+    font-weight: bold;
+    font-weight: 400;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Adicionando */
+
+.related-posts-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.related-post {
+    flex: auto;
+}
+
+.description-max-w {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+.btn-mt-2 {
+    margin-top: 5px;
+}
+
+.form-area {
+    box-sizing: border-box;
+    padding: 10px;
+}

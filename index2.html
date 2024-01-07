@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Blog FP | Post</title>
+        <link
+            rel="shortcut icon"
+            href="./img/288-logo-etec-fernando-prestes.svg"
+            type="image/svg"
+        />
+        <!-- Estilização -->
+        <link id="style-link" rel="stylesheet" href="./css/style.css" />
+        <!-- Fontes -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <style>
+        input[type="checkbox"] {
+            appearance: none;
+        }
+
+        label,
+        input[type="checkbox"]:hover {
+            cursor: pointer;
+        }
+
+        #nav-links .img-modo {
+            width: 18px;
+            margin-top: 2px;
+        }
+
+        body {
+            display: none;
+        }
+
+        a b {
+            font-weight: bold;
+            font-size: 12px;
+            border: 1px solid #e50000;
+            padding: 2px;
+            border-radius: 2px;
+            background-color: #e50000;
+            color: #fff;
+            transition: 0.4s;
+        }
+
+        .link-turne:hover b,
+        .link-turne a:hover {
+            color: #fff;
+        }
+
+        a:hover b {
+            border: 1px solid #a70000;
+            background-color: #a70000;
+        }
+
+        #foto-user {
+            width: 24pt;
+            margin-right: 5px;
+        }
+
+        h2 b {
+            font-weight: normal;
+            color: #000;
+        }
+
+        .form-area {
+            width: 100%;
+            background-color: #ffffff2f;
+            font-weight: bold;
+            color: #1b1b1b;
+        }
+
+        .form-comentario {
+            font-weight: bold;
+            color: #1b1b1b;
+        }
+
+        .comentarios-post {
+            width: 100%;
+            margin-top: 30px;
+            padding: 10px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid #818181;
+            font-weight: bold;
+        }
+        .comentarios-post {
+            font-size: 1rem;
+        }
+
+        .comentarios-post #like {
+            transition: 0.5s;
+            color: #39f;
+            cursor: pointer;
+            padding-right: 10px;
+            border-right: 2px solid #1b1b1b;
+        }
+
+        .comentarios-post p::selection,
+        span::selection {
+            appearance: none;
+            user-select: none;
+        }
+
+        .comentarios-post #like:hover {
+            color: rgb(57, 141, 226);
+        }
+
+        #comentario-text {
+            margin-left: 10px;
+        }
+    </style>
+    <body>
+        <header id="home">
+            <nav id="navbar">
+                <div id="navbar-inner">
+                    <img
+                        src="./img/288-logo-etec-fernando-prestes.svg"
+                        alt=""
+                        id="logo-page"
+                        style="filter: invert(100%)"
+                    />
+                    <ul id="nav-links">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="./login.php">Administrador</a></li>
+                        <li>
+                            <label class="switch">
+                                <input type="checkbox" id="style-toggle" />
+                                <img
+                                    src="./img/modo-escuro.png"
+                                    id="img"
+                                    alt="Toggle Image"
+                                    class="img-modo"
+                                    data-dark-image="./img/modo-claro.png"
+                                />
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <link rel="stylesheet" href="./css/style-post.css" />
+        <div class="container">
+            <main id="posts-container">
+                <article class="post">
+                    <img src="posts/f2.png" alt="Foto do Post" />
+                    <h3 class="title">
+                        Obra da construção finalizada da nova cozinha do
+                        Fernando Prestes
+                    </h3>
+                    <p class="description">
+                        Obra da construção da <strong>nova cozinha</strong> foi
+                        entregada, já começou a ser distribuída a merenda desde
+                        20 setembro, essa obra foi feita em torno de 3 meses.
+                        <strong> As vantagens dessa nova cozinha</strong>, é que
+                        a distribuição da merenda é mais rápida e pratica, com
+                        os próprios alunos pegando sua comida e duas filas
+                        separadas. Isso não era possível na outra cozinha por
+                        seu espaço pequeno.
+                    </p>
+                    <p class="description">
+                        A <strong>Escola Técnica Fernando Prestes</strong> tem o
+                        prazer de apresentar sua mais recente inovação, a
+                        <strong>nova cozinha escolar</strong>. Esta atualização
+                        representa um marco significativo na qualidade e na
+                        experiência dos alunos. A cozinha, recentemente
+                        reformada e equipada com
+                        <strong>tecnologia de ponta</strong>, proporciona um
+                        ambiente moderno e eficiente para a preparação de
+                        refeições. Com instalações mais amplas e equipamentos de
+                        última geração, os estudantes têm agora a oportunidade
+                        de aprimorar suas habilidades culinárias em um espaço
+                        inspirador. <br /><br />
+                        Além da infraestrutura renovada, a escola também está
+                        focada em promover hábitos alimentares saudáveis. A
+                        <strong>nova cozinha</strong> oferece opções de
+                        refeições equilibradas e nutritivas, contribuindo para o
+                        bem-estar dos alunos. Essa abordagem abrangente para a
+                        alimentação escolar não apenas satisfaz as necessidades
+                        nutricionais, mas também educa os alunos sobre a
+                        importância de escolhas alimentares saudáveis.
+                    </p>
+                    <p class="author">Gabriel Annuciato | 11/11/2023 08:04</p>
+                    <form action="sendComent.php" class="form-comentario">
+                        <h4>Comentário:</h4>
+                        <textarea
+                            placeholder="Adicione seu comentário aqui!"
+                            class="form-area"
+                            name="comentario"
+                            id="comentario"
+                            maxlength="1000"
+                        ></textarea>
+                        <button type="submit" class="btn-primary">
+                            Enviar
+                            <i class="fa-regular fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div class="comentarios-post">
+                        <p>
+                            <span id="like"
+                                ><i class="fa-regular fa-heart"></i
+                            ></span>
+                            <span id="comentario-text"
+                                >Achei legal a nova cozinha ;)</span
+                            >
+                        </p>
+                    </div>
+                </article>
+                <script></script>
+                <section id="related-posts">
+                    <h2>Posts Relacionados</h2>
+                    <div class="related-posts-container">
+                        <article class="related-post">
+                            <img
+                                src="posts/f1.png"
+                                alt="Imagem do post relacionado"
+                                class="img-post-mais"
+                            /><a href="viewPost.php?codigo=MTIzNDU="
+                                ><h3 class="title">
+                                    Etecs recebem inscrições para processo
+                                    seletivo do primeiro semestre de 2024
+                                </h3></a
+                            >
+                            <p class="description">
+                                As Etecs (Escolas Técnicas Estaduais) abriram as
+                                inscrições para o processo seletivo do primeiro
+                                semestre de 2024. As inscrições vão até 8 de
+                                novembro e devem ser feitas pelo site
+                                <strong
+                                    ><a
+                                        href="https://www.vestibulinhoetec.com.br/home/"
+                                        >Vestibulinho</a
+                                    ></strong
+                                >. O valor da taxa de inscrição é de R$ 34. Já o
+                                exame será aplicado em 10 de dezembro.
+                            </p>
+                            <p class="autor">Leonardo Marques</p>
+                            <p class="date">
+                                Postado em: <strong>23/10/2023</strong>
+                            </p>
+                        </article>
+                        <article class="related-post">
+                            <img
+                                src="posts/f3.png"
+                                alt="Imagem do post relacionado"
+                                class="img-post-mais"
+                            /><a href="viewPost.php?codigo=MzMzMzM="
+                                ><h3 class="title">
+                                    Começaram as provas esportivas da XXIV
+                                    Gincana da Amizade do FP
+                                </h3></a
+                            >
+                            <p class="description">
+                                Times da
+                                <strong>Etec Fernando Prestes (FP)</strong>, se
+                                unem para vencer provas em esportes(vôlei,
+                                futsal, tênis de mesa..). Cada equipe é formada
+                                pelos 3 anos de curso, por exemplo: (1°, 2°, 3°
+                                ano) de Desenvolvimento de Sistemas. E assim são
+                                formadas as equipes com essa mistura. Além disso
+                                com as participações e pódios, essas equipes
+                                arrecadam pontos, que vão sendo acumulados para
+                                no final do ano termos o OSCAR, neste evento a
+                                equipe que conseguir mais pontos ganha o troféu
+                                da gincana da amizade.
+                            </p>
+                            <p class="autor">Manoela Moraes</p>
+                            <p class="date">
+                                Postado em: <strong>11/10/2023</strong>
+                            </p>
+                        </article>
+                        <article class="related-post">
+                            <img
+                                src="posts/f4.png"
+                                alt="Imagem do post relacionado"
+                                class="img-post-mais"
+                            /><a href="viewPost.php?codigo=NDQ0NDQ="
+                                ><h3 class="title">
+                                    Alunos de Etec Fernando Prestes arrecadam
+                                    leite para doação
+                                </h3></a
+                            >
+                            <p class="description">
+                                Os alunos da Escola Técnica Estadual (Etec)
+                                Fernando Prestes arrecadaram mais de
+                                <strong
+                                    >18 mil litros de leite para doação</strong
+                                >. A coleta do alimento foi feita durante ação
+                                do projeto Gincana da Amizade, realizado há mais
+                                de 20 edições na instituição. O leite arrecadado
+                                foi doado para 13 associações sociais: Banco de
+                                Alimentos de Sorocaba, Lar Criança Feliz,
+                                Instituto Maria Claro, Gpaci, Lar São Vicente de
+                                Paula, Afissore, Anjos do Bem, Casa Áurea, Apae,
+                                Comunidade Há Uma Esperança, Amigos da Etec,
+                                Comunidade Amigos e Salesiano Sorocaba.
+                            </p>
+                            <p class="autor">Leonardo Marques</p>
+                            <p class="date">
+                                Postado em: <strong>18/04/2023</strong>
+                            </p>
+                        </article>
+                    </div>
+                </section>
+            </main>
+            <aside id="sidebar">
+                <section id="search-bar">
+                    <a
+                        href="https://websai.cps.sp.gov.br/acesso/Login?ReturnUrl=%2FFormulario%2FLista"
+                    >
+                        <figure>
+                            <img
+                                src="./img/websai.png"
+                                alt="WebSai"
+                                title="CPS pesquisa do WEBSAI 2023"
+                                class="img-websai"
+                            />
+                        </figure>
+                    </a>
+                </section>
+                <section id="categories">
+                    <h4>Links Úteis</h4>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.etecfernandoprestes.com.br/"
+                                    title="Site Etec Fernando Prestes"
+                                    >Etec Fernando Prestes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.vestibulinhoetec.com.br/home/"
+                                    title="Site Vestibulinho"
+                                    >Vestibulinho</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="cursos.php"
+                                    title="Cursos da Etec Fernando Prestes"
+                                    >Cursos</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="./criadores.php"
+                                    title="Veja os Criadores!"
+                                    >Criadores</a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
+                <section id="redes">
+                    <h4>Redes Socias</h4>
+                    <div id="tags-container-2">
+                        <a
+                            href="https://www.instagram.com/etecfernandoprestes/"
+                            title="Instagram"
+                            id="instagram"
+                            ><i class="fab fa-instagram"></i
+                        ></a>
+                        <a
+                            href="https://www.facebook.com/etecfernando"
+                            title="Facebook"
+                            id="facebook"
+                            ><i class="fab fa-facebook"></i
+                        ></a>
+                        <a
+                            href="https://www.youtube.com/@EtecFernandoPrestesCPS"
+                            title="Youtube"
+                            id="youtube"
+                            ><i class="fa-brands fa-youtube"></i
+                        ></a>
+                    </div>
+                </section>
+            </aside>
+        </div>
+        <footer>
+            <div class="container-footer">
+                <div class="row-footer">
+                    <figure>
+                        <img
+                            src="./img/288-logo-etec-fernando-prestes.svg"
+                            alt=""
+                            class="logo-fp-footer"
+                        />
+                    </figure>
+                    <small class="text-copy-footer">
+                        &copy;Leonardo Marques e Manoela Moraes | 2023
+                    </small>
+                    <div class="redes-sociais-footer">
+                        <ul class="row-footer">
+                            <a
+                                href="https://www.instagram.com/etecfernandoprestes/"
+                                class="link-rede-footer"
+                                title="Instagram"
+                                id="instagram-footer"
+                                ><li>
+                                    <i class="fab fa-instagram"></i></li
+                            ></a>
+                            <a
+                                href="https://www.facebook.com/etecfernando"
+                                class="link-rede-footer"
+                                title="Facebook"
+                                id="facebook-footer"
+                                ><li>
+                                    <i class="fab fa-facebook"></i></li
+                            ></a>
+                            <a
+                                href="https://www.youtube.com/@EtecFernandoPrestesCPS"
+                                class="link-rede-footer"
+                                title="Youtube"
+                                id="youtube-footer"
+                                ><li>
+                                    <i class="fab fa-youtube"></i></li
+                            ></a>
+                            <a
+                                href="https://www.etecfernandoprestes.com.br/"
+                                class="link-rede-footer"
+                                title="Site Etec Fernando Prestes"
+                                id="sitefp-footer"
+                                ><li>
+                                    <i class="fa-solid fa-globe"></i></li
+                            ></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script>
+            const LikePost = document.querySelector("#like");
+            let isSolid = false;
+
+            LikePost.addEventListener("click", (e) => {
+                if (isSolid == false) {
+                    LikePost.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+                    isSolid = true;
+                } else if (isSolid == true) {
+                    LikePost.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+                    isSolid = false;
+                }
+            });
+        </script>
+
+        <script src="./js/script.js"></script>
+        <script src="./js/awsome/all.min.js"></script>
+        <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
+    </body>
+</html>
