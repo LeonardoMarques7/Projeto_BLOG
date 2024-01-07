@@ -12,5 +12,5 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: ftpupload.net
-        username: ${{ vars.ftp_username }}
-        password: ${{ vars.ftp_password }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
