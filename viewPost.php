@@ -62,45 +62,30 @@
     } 
 </style>
 <body>
-    <header id="home">
-        <nav id="navbar">
-            <div id="navbar-inner">
-                <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
-                <ul id="nav-links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="./login.php">Administrador</a></li>
-                    <li>
-                        <label class="switch">
-                            <input type="checkbox" id="style-toggle">
-                            <img src="./img/modo-escuro.png" id="img" alt="Toggle Image" class="img-modo" data-dark-image="./img/modo-claro.png">
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <style>
-            .invisible {
-                display: none;
-            }
+    <?php include('./inc/header.php');?>
+    <style>
+        .invisible {
+            display: none;
+        }
 
-            .form-area {
-                width: 100%;
-                background-color: #ffffff2f;
-                font-weight: bold;
-                color: #1b1b1b;
-            }
+        .form-area {
+            width: 100%;
+            background-color: #ffffff2f;
+            font-weight: bold;
+            color: #1b1b1b;
+        }
 
-            .form-comentario {
-                font-weight: bold;
-                color: #1b1b1b;
-            }
-        </style>
-    </header>
+        .form-comentario {
+            font-weight: bold;
+            color: #1b1b1b;
+        }
+    </style>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
                 include('conexao.php');
+
                 // recuperando a informação da URL
 			    // verifica se parâmetro está correto e dento da normalidade 
                 if (isset($_GET['codigo']) && is_numeric(base64_decode($_GET['codigo']))) {
@@ -161,8 +146,13 @@
                 } else {
                     echo "Nenhum comentário encontrado.";
                 }
-                echo '<textarea placeholder="Escreva aqui seu comentário" class="form-area" name="comentario" id="comentario" maxlength="1000" required></textarea>';
-                echo '<button type="submit" class="btn-primary btn-mt-2"> Enviar <i class="fa-regular fa-paper-plane"></i></button>';
+                if (isset($_SESSION['login'])) {
+                    echo '<textarea placeholder="Escreva aqui seu comentário" class="form-area" name="comentario" id="comentario" maxlength="1000" required></textarea>';
+                    echo '<button type="submit" class="btn-primary btn-mt-2"> Enviar <i class="fa-regular fa-paper-plane"></i></button>';
+                }
+                else {
+                    echo '<h4>Faça seu login para poder comentar <a href="./login.php" class="link-login">Clique Aqui</a></h4>';
+                }
                 echo '</form>';
                 echo '</article>';
 
@@ -174,9 +164,7 @@
                 <h2>Posts Relacionados</h2>
                 <div class="related-posts-container">
                     <?php
-
-                        // Criar uma nova consulta SQL para buscar outros posts
-                        $sqlConsultaRelacionados = "SELECT * FROM post WHERE codigo != $codigo LIMIT 3"; // Limitando a 3 posts relacionados
+                        $sqlConsultaRelacionados = "SELECT * FROM post WHERE codigo != $codigo LIMIT 3";
                         $resultadoRelacionados = @mysqli_query($conexao, $sqlConsultaRelacionados);
 
                         if ($resultadoRelacionados) {
@@ -184,10 +172,8 @@
                                 $timestampRelacionados = strtotime($dadosRelacionados['datePost']);
                                 $dataFormatadaRelacionados = date('d/m/Y', $timestampRelacionados);
 
-                                // Certifique-se de definir a imagem padrão se não houver uma imagem no post
                                 $imagemRelacionados = !empty($dadosRelacionados['foto']) ? 'posts/' . $dadosRelacionados['foto'] : 'Semfoto.png';
 
-                                // Exibir os posts relacionados
                                 echo '<article class="related-post">';
                                 echo "<img src='$imagemRelacionados' alt='Imagem do post relacionado' class='img-post-mais'>";
                                 echo '<a href="viewPost.php?codigo=' . base64_encode($dadosRelacionados["codigo"]) . '"><h3 class="title">' . $dadosRelacionados['titulo'] . '</h3></a>';

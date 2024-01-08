@@ -80,9 +80,10 @@
     </header>
     <div class="container">
         <main id="posts-container">
-            <?php
-				if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    
+        <?php
+                session_start(); // Inicia a sessão
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     include 'conexao.php';
 
                     $login = $_POST['login'];
@@ -90,10 +91,11 @@
 
                     if ($conexao) {
                         $sql = "SELECT * FROM users WHERE login = '$login' AND senha = '$senha'";
-
                         $resultado = mysqli_query($conexao, $sql);
 
                         if (mysqli_num_rows($resultado) > 0) {
+                            $_SESSION['login'] = $login;
+
                             include("carregando.php");
                         } else {
                             echo '<script type="text/javascript">';
@@ -110,7 +112,8 @@
                         echo '</center>';
                     }
                 }
-			?>
+            ?>
+
         </main>
         <aside id="sidebar">
             <section id="search-bar">

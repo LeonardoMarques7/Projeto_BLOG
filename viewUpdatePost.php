@@ -61,29 +61,19 @@
     } 
 </style>
 <body>
-    <header id="home">
-        <nav id="navbar">
-            <div id="navbar-inner">
-                <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
-                <ul id="nav-links">
-                    <li><a href="index.php" class="active">Home</a></li>
-                    <li><a href="./dashbord.php">Administrador</a></li>
-                    <li>
-                        <label class="switch">
-                            <input type="checkbox" id="style-toggle">
-                            <img src="./img/modo-escuro.png" id="img" alt="Toggle Image" class="img-modo" data-dark-image="./img/modo-claro.png">
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        
-    </header>
+    <?php include('./inc/header.php');?>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
                 include('conexao.php');
+
+                if (!isset($_SESSION['login'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.php");
+                    exit;
+                }
+
                 // recuperando a informação da URL
 			    // verifica se parâmetro está correto e dento da normalidade 
                 if (isset($_GET['codigo']) && is_numeric(base64_decode($_GET['codigo']))) {

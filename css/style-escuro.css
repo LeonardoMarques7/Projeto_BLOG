@@ -1484,3 +1484,8 @@ li .remove:hover {
 .coment {
     color: #eee;
 }
+
+#nav-links .img-modo {
+    width: 18px;
+    margin-top: 2px;
+}

@@ -65,57 +65,51 @@
 </style>
 
 <body>
-    <header id="home">
-        <nav id="navbar">
-            <div id="navbar-inner">
-                <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
-                <ul id="nav-links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="./dashbord.php" class="active">Administrador</a></li>
-                    <li>
-                        <label class="switch">
-                            <input type="checkbox" id="style-toggle">
-                            <img src="./img/modo-escuro.png" id="img" alt="Toggle Image" class="img-modo" data-dark-image="./img/modo-claro.png">
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <?php include("inc/header.php") ?>
     <div class="container">
         <main id="posts-container">
-            <a href="./criaPost.php"><button class="btn-add" style="text-transform: uppercase; font-weight: bold; aling-items: center;"><i class="fa-solid fa-square-plus"></i> Adicione um Post</button></a><br><br>
+            <a href="./criaPost.php"><button class="btn-add" style="text-transform: uppercase; font-weight: bold; align-items: center;"><i class="fa-solid fa-square-plus"></i> Adicione um Post</button></a><br><br>
             <?php
-            include("conexao.php");
-            include("pesquisador.php");
 
-            $query = $conexao->query($sql);
-
-            while ($dados = mysqli_fetch_array($query)) {
-                $timestamp = strtotime($dados['datePost']);
-                $data_formatada = date('d/m/Y H:i', $timestamp);
-
-                if (empty($dados['foto'])) {
-                    $foto = 'Semfoto.png';
-                } else {
-                    $foto = $dados['foto'];
+                // Verifique se o usuário está logado
+                if (!isset($_SESSION['login'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.php");
+                    exit;
                 }
+            
+                // Se o usuário estiver logado, exiba o conteúdo da página
+                include("conexao.php");
+                include("pesquisador.php");
+            
 
-                $codigo = base64_encode($dados['codigo']);
+                $query = $conexao->query($sql);
 
-                echo '<article class="post">';
-                echo "<img src='posts/$foto' alt='Foto do Post'>";
-                echo '<div class="post-buttons"><div class="esquerda"><p class="codigo">Código do Post: ' . $dados["codigo"] . '</p></div><div class="espacador"></div>';
-                echo "<div class='direita-edit'><a href='viewUpdatePost.php?codigo=$codigo' title='Editar'><i class='fa-regular fa-pen-to-square'></i></a></div>";
-                echo "<div class='direita'><a href='viewDeletePost.php?codigo=$codigo' title='Apagar'><i class='fa-solid fa-trash-can'></i></a></div></div>";
-                echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
-                echo '<p class="description">' . $dados["assuntoIntro"] . '</p>';
-                echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
-                echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
-                echo '</article>';
-            }
-            mysqli_close($conexao);
+                while ($dados = mysqli_fetch_array($query)) {
+                    $timestamp = strtotime($dados['datePost']);
+                    $data_formatada = date('d/m/Y H:i', $timestamp);
+
+                    if (empty($dados['foto'])) {
+                        $foto = 'Semfoto.png';
+                    } else {
+                        $foto = $dados['foto'];
+                    }
+
+                    $codigo = base64_encode($dados['codigo']);
+
+                    echo '<article class="post">';
+                    echo "<img src='posts/$foto' alt='Foto do Post'>";
+                    echo '<div class="post-buttons"><div class="esquerda"><p class="codigo">Código do Post: ' . $dados["codigo"] . '</p></div><div class="espacador"></div>';
+                    echo "<div class='direita-edit'><a href='viewUpdatePost.php?codigo=$codigo' title='Editar'><i class='fa-regular fa-pen-to-square'></i></a></div>";
+                    echo "<div class='direita'><a href='viewDeletePost.php?codigo=$codigo' title='Apagar'><i class='fa-solid fa-trash-can'></i></a></div></div>";
+                    echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
+                    echo '<p class="description">' . $dados["assuntoIntro"] . '</p>';
+                    echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
+                    echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
+                    echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
+                    echo '</article>';
+                }
+                mysqli_close($conexao);
             ?>
         </main>
         <aside id="sidebar">

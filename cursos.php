@@ -53,7 +53,7 @@
                     />
                     <ul id="nav-links">
                         <li><a href="./index.php">Home</a></li>
-                        <li><a href="./login.php">Administrador</a></li>
+                        <li><a href="./dashbord.php">Administrador</a></li>
                         <li>
                             <label class="switch">
                                 <input type="checkbox" id="style-toggle" />

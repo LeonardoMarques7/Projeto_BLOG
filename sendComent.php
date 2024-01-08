@@ -61,24 +61,7 @@
     } 
 </style>
 <body>
-    <header id="home">
-        <nav id="navbar">
-            <div id="navbar-inner">
-                <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
-                <ul id="nav-links">
-                    <li><a href="index.php" class="active">Home</a></li>
-                    <li><a href="./login.php">Administrador</a></li>
-                    <li>
-                        <label class="switch">
-                            <input type="checkbox" id="style-toggle">
-                            <img src="./img/modo-escuro.png" id="img" alt="Toggle Image" class="img-modo" data-dark-image="./img/modo-claro.png">
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        
-    </header>
+    <?php include("inc/header.php") ?>
     <div class="container">
         <main id="posts-container">
             <?php

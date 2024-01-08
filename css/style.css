@@ -1025,6 +1025,25 @@ li .remove:hover {
     color: #242424;
 }
 
+@media (max-width: 600px) {
+    #text-icon {
+        display: none;
+    }
+}
+
 #text-icon {
     filter: invert(50%);
+}
+
+#nav-links .img-modo {
+    width: 18px;
+    margin-top: 2px;
+}
+
+.link-login {
+    text-decoration: underline;
+}
+
+.link-login:hover {
+    text-decoration: underline;
 }
