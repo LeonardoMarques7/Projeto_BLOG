@@ -96,6 +96,18 @@
                         if (mysqli_num_rows($resultado) > 0) {
                             $_SESSION['login'] = $login;
 
+                            $row = mysqli_fetch_assoc($resultado);
+                            $_SESSION['foto'] = $row['foto'];
+                            $_SESSION['nome'] = $row['nome'];
+                            $_SESSION['id'] = $row['id'];
+                            $_SESSION['tipoUser'] = $row['tipoUser'];
+                            $_SESSION['profissao'] = $row['profissao'];
+                            $_SESSION['linkInsta'] = $row['instagram'];
+                            $_SESSION['linkTwitter'] = $row['twitter'];
+                            $_SESSION['linkFace'] = $row['facebook'];
+
+                            $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
+
                             include("carregando.php");
                         } else {
                             echo '<script type="text/javascript">';

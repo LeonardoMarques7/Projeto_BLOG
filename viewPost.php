@@ -79,6 +79,7 @@
             font-weight: bold;
             color: #1b1b1b;
         }
+
     </style>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
@@ -86,14 +87,7 @@
             <?php
                 include('conexao.php');
 
-                // recuperando a informação da URL
-			    // verifica se parâmetro está correto e dento da normalidade 
-                if (isset($_GET['codigo']) && is_numeric(base64_decode($_GET['codigo']))) {
-                    $codigo = base64_decode($_GET['codigo']);
-                } else {
-                    header('Location: dashbord.php');
-                }
-
+                $codigo = $_GET['codigo'];
 
                 // criando a linha do  SELECT
                 $sqlconsulta =  "select * from post where codigo = $codigo";
@@ -113,17 +107,24 @@
                     }
                 } 
 
-                    $timestamp = strtotime($dados['datePost']);
-                    $data_formatada = date('d/m/Y H:i', $timestamp);
+                $timestamp = strtotime($dados['datePost']);
+                $data_formatada = date('d/m/Y H:i', $timestamp);
 
-                    if (empty($dados['foto'])){
-                        $foto = 'Semfoto.png';
-                    } else{
-                        $foto = $dados['foto'];
-                    }
-
+                if (empty($dados['foto'])){
+                    $foto = 'Semfoto.png';
+                } else{
+                    $foto = $dados['foto'];
+                }
                 echo '<article class="post">';
                 echo "<img src='posts/$foto'alt='Foto do Post'>";
+                if (isset($_SESSION['tipoUser'])) {
+                    if ($_SESSION['tipoUser'] == "admin") {
+                        echo '<div class="post-buttons"><div class="esquerda"><p class="codigo">Código do Post: ' . $codigo . '</p></div><div class="espacador"></div>';
+                        echo "<div class='direita-edit'><a href='viewUpdatePost.php?codigo=$codigo' title='Editar'><i class='fa-regular fa-pen-to-square'></i></a></div>";
+                        echo "<div class='direita'><a href='viewDeletePost.php?codigo=$codigo' title='Apagar'><i class='fa-solid fa-trash-can'></i></a></div></div>";
+                    }
+                }
+                
                 echo '<h3 class="title">' . $dados["titulo"] . '</h3>';
                 echo '<p class="description">' . $dados["assuntoIntro"] . "</p><p class='description'>" . $dados["assuntoCompleto"] . '</p>';
                 echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
@@ -135,12 +136,31 @@
 
                 $resultadoComentarios = mysqli_query($conexao, $queryComentarios);
 
+
                 if ($resultadoComentarios) {
                     while ($comentario = mysqli_fetch_assoc($resultadoComentarios)) {
+                        if (empty($comentario['image_comentario'])){
+                            $foto = 'Semfoto.png';
+                        } else{
+                            $foto = $comentario['image_comentario'];
+                        }
+
+                        $comentario_id = base64_encode($comentario['comentario_id']);
+
                         echo '<div class="comentario">';
-                        echo '<button class="btn btn-like" type="button" onclick="likePost(this)"><i class="far fa-heart"></i></button>';
-                        echo '<svg id="text-icon" xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg>';
+                        echo "  <div class='img-title-coment'>";
+                        echo "     <img src='./img/$foto' class='image-coment' />";
+                        echo "      <a href='view.php?id=$comentario[id_user]'><h5 class='title-comentario'>$comentario[nome_user]</h5></a>";
+                        if(isset($_SESSION['login'])) {
+                            if ($_SESSION['login'] === $comentario['login_user']) {
+                                echo "<a href='viewDeleteComent.php?comentario_id=$comentario_id' class='btn btn-delete-coment'><i class='fa-solid fa-trash'></i></a>";
+                            } else if($_SESSION['tipoUser'] === "admin") {
+                                echo "<a href='viewDeleteComent.php?comentario_id=$comentario_id' class='btn btn-delete-coment'><i class='fa-solid fa-trash'></i></a>";
+                            }
+                        }
+                        echo "  </div>";
                         echo '  <p class="coment">' . $comentario["conteudo_comentario"] . '</p>';
+                        
                         echo '</div>';
                     }
                 } else {
@@ -151,7 +171,7 @@
                     echo '<button type="submit" class="btn-primary btn-mt-2"> Enviar <i class="fa-regular fa-paper-plane"></i></button>';
                 }
                 else {
-                    echo '<h4>Faça seu login para poder comentar <a href="./login.php" class="link-login">Clique Aqui</a></h4>';
+                    echo '<h4>Para comentar, faça <a href="./login.php" class="link-login">login</a> ou <a href="criandoConta.php" class="link-login">crie uma conta</a>.</h4>';
                 }
                 echo '</form>';
                 echo '</article>';
@@ -176,7 +196,7 @@
 
                                 echo '<article class="related-post">';
                                 echo "<img src='$imagemRelacionados' alt='Imagem do post relacionado' class='img-post-mais'>";
-                                echo '<a href="viewPost.php?codigo=' . base64_encode($dadosRelacionados["codigo"]) . '"><h3 class="title">' . $dadosRelacionados['titulo'] . '</h3></a>';
+                                echo '<a href="viewPost.php?codigo=' . $dadosRelacionados["codigo"] . '"><h3 class="title">' . $dadosRelacionados['titulo'] . '</h3></a>';
                                 echo '<p class="description description-max-w">' . $dadosRelacionados["assuntoIntro"] . '</p>';
                                 echo '<p class="autor">' . $dadosRelacionados["autor"] . '</p>';
                                 echo '<p class="date">Postado em: <strong>' . $dataFormatadaRelacionados . '</strong></p>';

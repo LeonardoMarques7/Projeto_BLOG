@@ -66,40 +66,28 @@
         <main id="posts-container">
             <?php
 				include('conexao.php');
-
-                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
-                    // Se não estiver logado, redirecione para a página de login
-                    header("Location: login.php");
-                    exit;
-                }
-
 				// recuperando 
-				$titulo = $_POST['titulo'];	
-				$assuntoIntro = $_POST['assuntoIntro'];	
-				$assuntoCompleto = $_POST['assuntoCompleto'];	
-				$tags = $_POST['tag-input'];	
-				$codigo = $_POST['codigo'];	
-				$autor = $_SESSION['nome'];	
-
-                // Pegando a hora atual
-                $data_formatada = new DateTime ('now', new DateTimeZone ('America/Sao_Paulo'));
-				
-                $datePost = $data_formatada->format("Y-m-d H:i");
-				
-
+				$nome = $_POST['nome'];	
+				$login = $_POST['login'];	
+				$senha = $_POST['senha'];	
+				$tipoUser = $_POST['tipoUser'];	
+                $profissao = $_POST['profissao'];	
+				$instagram = $_POST['instagram'];	
+				$twitter = $_POST['twitter'];	
+				$facebook = $_POST['facebook'];	
 				$foto = $_FILES['arquivo']['name']; // nome do arquivo
 				$foto_tmp = $_FILES['arquivo']['tmp_name']; // nome temporário do arquivo
 
 				// movendo o arquivo temporário para o destino desejado
-				move_uploaded_file($foto_tmp, "posts/" . $foto);
+				move_uploaded_file($foto_tmp, "img/" . $foto);
 
 				if (!empty($foto)) {
                     // criando a linha de INSERT
-                    $sqlinsert = "INSERT INTO post (codigo, titulo, assuntoIntro, assuntoCompleto, tags, autor, datePost, foto) VALUES ('$codigo', '$titulo', '$assuntoIntro', '$assuntoCompleto', '$tags', '$autor', '$datePost', '$foto')";
+                    $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
                 }
                 else {
                     $foto = 'Semfoto.png';
-                    $sqlinsert = "INSERT INTO post (codigo, titulo, assuntoIntro, assuntoCompleto, tags, autor, datePost, foto) VALUES ('$codigo', '$titulo', '$assuntoIntro', '$assuntoCompleto', '$tags', '$autor', '$datePost', '$foto')";
+                    $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
                 }
 
 				// executando instrução SQL

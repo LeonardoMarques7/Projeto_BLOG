@@ -72,7 +72,7 @@
     <?php 
         include("inc/header.php");
         
-        if (!isset($_SESSION['login'])) {
+        if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
             // Se não estiver logado, redirecione para a página de login
             header("Location: login.php");
             exit;
@@ -186,9 +186,6 @@
                             }
                         });
                     </script>
-                </div><br>
-                <div class="col text-start">
-                    <b>Autor do Post:</b><br><input class="form-control border-primary" placeholder="Digite o Autor" type="text" name="autor" id="autor" required title="Digite o Autor"></input>
                 </div><br>
                 <div class="col text-start">
                     <b>Data de Cadastro do Post:</b><br><input class="form-control text-center border-primary" name="datePost" id="datePost"  placeholder="A data será informada só quando enviar!" type="text" title="Digite data do Post" disabled></input>

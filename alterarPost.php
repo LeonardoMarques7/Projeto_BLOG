@@ -66,9 +66,8 @@
     <div class="container">
         <main id="posts-container">
             <?php
-                session_start();
 
-                if (!isset($_SESSION['login'])) {
+                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                     // Se não estiver logado, redirecione para a página de login
                     header("Location: login.php");
                     exit;
@@ -81,8 +80,6 @@
                 $assuntoIntro = $_POST['assuntoIntro'];	
                 $assuntoCompleto = $_POST['assuntoCompleto'];	
                 $tags = $_POST['tag-input'];	
-                $autor = $_POST['autor'];	
-                $comentario = $_POST['comentario'];
                 $foto = $_FILES['arquivo']['name']; 
                 $foto_tmp = $_FILES['arquivo']['tmp_name']; 
 
@@ -97,10 +94,10 @@
                     move_uploaded_file($foto_tmp, "posts/" . $foto);
                 
                     // Atualizar o campo "imagem" na consulta SQL apenas se um novo arquivo foi enviado
-                    $sqlupdate = "UPDATE post SET foto='$foto', titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', autor='$autor', comentario='$comentario', datePost='$datePost' WHERE codigo='$codigo'";
+                    $sqlupdate = "UPDATE post SET foto='$foto', titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', datePost='$datePost' WHERE codigo='$codigo'";
                 } else {
                     // Se nenhum novo arquivo foi enviado, manter o valor atual do campo "imagem"
-                    $sqlupdate = "UPDATE post SET titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', autor='$autor', comentario='$comentario', datePost='$datePost' WHERE codigo='$codigo'";
+                    $sqlupdate = "UPDATE post SET titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', datePost='$datePost' WHERE codigo='$codigo'";
                 }
 
 

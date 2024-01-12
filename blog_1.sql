@@ -1,3 +1,5 @@
+CREATE DATABASE blog;
+USE blog;
 
 CREATE TABLE `comentarios` (
   `comentario_id` int(11) UNSIGNED NOT NULL,
@@ -110,7 +112,6 @@ ALTER TABLE `post`
 -- Índices de tabela `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `foto` (`foto`),
   ADD KEY `login` (`login`),
   ADD KEY `nome` (`nome`,`tipoUser`),
@@ -124,16 +125,4 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `comentario_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de tabela `post`
---
-ALTER TABLE `post`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de tabela `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `comentario_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;

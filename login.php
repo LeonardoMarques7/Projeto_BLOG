@@ -59,6 +59,10 @@
         font-weight: normal;
         color: #000;
     } 
+
+    .senha-col {
+        margin-bottom: 5px;
+    }
 </style>
 <body>
     <?php include('./inc/header.php');?>
@@ -74,9 +78,11 @@
                     <div class="col">
                         <b>Login:</b><br><input class="form-control-login  border-primary mb-2" placeholder="Digite o Login" type="text"  name="login" id="login" maxlength="80" title="Digite o Login" required>
                     </div>
-                    <div class="col">
+                    <div class="col senha-col">
                         <b>Senha:</b><br><input class="form-control-login  border-primary" placeholder="Digite o Senha" type="password"  name="senha" id="senha" maxlength="80" title="Digite a Senha" required>
-                    </div><br>
+                    </div>
+                    <b class="title-cria">Não tem uma conta? </b><a href="criandoConta.php" class="link-login">Clique aqui</a><div class="br"></div>
+                    <br>
                     <div class="d-grid col-md-9">
                         <button class="btn btn-entrar" type="submit" title="Entrar">Entrar</button>
                     </div>

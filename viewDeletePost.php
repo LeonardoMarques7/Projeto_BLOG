@@ -68,19 +68,13 @@
             <?php
                 include('conexao.php');
 
-                if (!isset($_SESSION['login'])) {
+                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                     // Se não estiver logado, redirecione para a página de login
                     header("Location: login.php");
                     exit;
                 }
-
-                // recuperando a informação da URL
-			    // verifica se parâmetro está correto e dento da normalidade 
-                if (isset($_GET['codigo']) && is_numeric(base64_decode($_GET['codigo']))) {
-                    $codigo = base64_decode($_GET['codigo']);
-                } else {
-                    header('Location: dashbord.php');
-                }
+                
+                $codigo = $_GET['codigo'];
 
                 // criando a linha do  SELECT
                 $sqlconsulta =  "select * from post where codigo = $codigo";

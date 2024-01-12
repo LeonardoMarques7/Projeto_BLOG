@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog FP | Criando Post</title>
+    <title>Blog FP | Excluindo</title>
     <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
     <!-- Estilização -->
     <link id="style-link" rel="stylesheet" href="./css/style.css">
@@ -61,57 +61,65 @@
     } 
 </style>
 <body>
-    <?php include("inc/header.php") ?>
+    <?php include('./inc/header.php');?>
+    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
-				include('conexao.php');
+                include('conexao.php');
 
-                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
-                    // Se não estiver logado, redirecione para a página de login
-                    header("Location: login.php");
+
+                // recuperando a informação da URL
+			    // verifica se parâmetro está correto e dento da normalidade 
+                if (isset($_GET['comentario_id']) && is_numeric(base64_decode($_GET['comentario_id']))) {
+                    $codigo = base64_decode($_GET['comentario_id']);
+                } else {
+                    header('Location: dashbord.php');
+                }
+
+                // criando a linha do  SELECT
+                $sqlconsulta =  "select * from comentarios where comentario_id = $codigo";
+                
+                // executando instrução SQL
+                $resultado = @mysqli_query($conexao, $sqlconsulta);
+                if (!$resultado) {
+                    die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
+                } else {
+                    $num = @mysqli_num_rows($resultado);
+                    if ($num==0){
+                        echo "<strong style='font-size: 18px;'>Código: $codigo </strong> - Não localizado!!<br><br>";
+                        echo "<div class='col-md-4'><a href='alteracao.php' class='btn btn-outline-primary w-100'>Voltar</a></div>";
                     exit;
-                }
+                    }else{
+                        $dados=mysqli_fetch_array($resultado);
+                    }
+                } 
 
-				// recuperando 
-				$titulo = $_POST['titulo'];	
-				$assuntoIntro = $_POST['assuntoIntro'];	
-				$assuntoCompleto = $_POST['assuntoCompleto'];	
-				$tags = $_POST['tag-input'];	
-				$codigo = $_POST['codigo'];	
-				$autor = $_SESSION['nome'];	
-
-                // Pegando a hora atual
-                $data_formatada = new DateTime ('now', new DateTimeZone ('America/Sao_Paulo'));
-				
-                $datePost = $data_formatada->format("Y-m-d H:i");
-				
-
-				$foto = $_FILES['arquivo']['name']; // nome do arquivo
-				$foto_tmp = $_FILES['arquivo']['tmp_name']; // nome temporário do arquivo
-
-				// movendo o arquivo temporário para o destino desejado
-				move_uploaded_file($foto_tmp, "posts/" . $foto);
-
-				if (!empty($foto)) {
-                    // criando a linha de INSERT
-                    $sqlinsert = "INSERT INTO post (codigo, titulo, assuntoIntro, assuntoCompleto, tags, autor, datePost, foto) VALUES ('$codigo', '$titulo', '$assuntoIntro', '$assuntoCompleto', '$tags', '$autor', '$datePost', '$foto')";
-                }
-                else {
-                    $foto = 'Semfoto.png';
-                    $sqlinsert = "INSERT INTO post (codigo, titulo, assuntoIntro, assuntoCompleto, tags, autor, datePost, foto) VALUES ('$codigo', '$titulo', '$assuntoIntro', '$assuntoCompleto', '$tags', '$autor', '$datePost', '$foto')";
-                }
-
-				// executando instrução SQL
-				$resultado = @mysqli_query($conexao, $sqlinsert);
-				if (!$resultado) {
-					echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
-					die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
-				} else {
-                    include("carregando.php");
-				} 
-				mysqli_close($conexao);
-			?>
+                    mysqli_close($conexao);
+                    if (empty($dados['image_comentario'])){
+                        $foto = 'Semfoto.png';
+                    } else{
+                        $foto = $dados['image_comentario'];
+                    }
+            ?>
+            <form name="produto" action="deleteComent.php" class="form border rounded shadow-lg" method="post" enctype="multipart/form-data"><br><br>
+                <h1 style="color: #39f;"><i class="fa-solid fa-square-minus"></i> Deletando Comentário</h1><br>
+                <div class="col form-control">
+                    <img src="<?php echo "img/$foto" ?>" style="max-width: 10%; text-align:center; margin: 0 auto;" alt="Foto do Post" readonly>
+                </div><br>
+                <div class="col text-start">
+                    <b>Código do Post:</b><br><input class="form-control border-primary" type="number" name="codigo" id="codigo"  placeholder="Sem dados!" title="Não é possível Alterar no DELETE" value="<?php echo $dados['codigo_post'];?>" readonly>
+                </div><br>
+                <div class="col text-start">
+                    <b>Conteúdo:</b><br><input class="form-control border-primary" type="text"  name="titulo" id="titulo" maxlength="80"  placeholder="Sem dados!" title="Não é possível Alterar no DELETE" value="<?php echo $dados['conteudo_comentario'];?>" readonly>
+                </div><br>
+                <div class="d-grid col-md-9">
+                    <input type='hidden' name='codigo' value="<?php echo $dados['comentario_id']; ?>">
+                    <button class="btn btn-primary" type="submit" title="Excluir" style="color: 444;"><i class="fa-solid fa-trash"></i> Excluir</button>
+                    <a href="dashbord.php"><button class="btn btn-outline-danger" type="button" title="Voltar" style="color: 444;"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
+                </div>
+                <br><br>
+            </form>
         </main>
         <aside id="sidebar">
             <section id="search-bar">

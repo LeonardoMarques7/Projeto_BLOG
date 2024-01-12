@@ -85,7 +85,7 @@
                         $foto = $dados['foto'];
                     }
 
-                    $codigo = base64_encode($dados['codigo']);
+                    $codigo = $dados['codigo'];
 
                     echo '<article class="post">';
                     echo "<img src='posts/$foto' alt='Foto do Post'>";

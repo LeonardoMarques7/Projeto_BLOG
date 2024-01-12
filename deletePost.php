@@ -85,7 +85,7 @@
             <?php
                 include('conexao.php');
 
-                if (!isset($_SESSION['login'])) {
+                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                     // Se não estiver logado, redirecione para a página de login
                     header("Location: login.php");
                     exit;

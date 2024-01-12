@@ -68,20 +68,13 @@
             <?php
                 include('conexao.php');
 
-                if (!isset($_SESSION['login'])) {
+                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                     // Se não estiver logado, redirecione para a página de login
                     header("Location: login.php");
                     exit;
                 }
 
-                // recuperando a informação da URL
-			    // verifica se parâmetro está correto e dento da normalidade 
-                if (isset($_GET['codigo']) && is_numeric(base64_decode($_GET['codigo']))) {
-                    $codigo = base64_decode($_GET['codigo']);
-                } else {
-                    header('Location: dashbord.php');
-                }
-
+                $codigo = $_GET['codigo'];
 
                 // criando a linha do  SELECT
                 $sqlconsulta =  "select * from post where codigo = $codigo";
@@ -189,12 +182,6 @@
                         </div>
                     </div>
                 </div><br>
-                <div class="col text-start">
-                    <b>Autor do Post:</b><br><input class="form-control border-primary" placeholder="Digite o Autor" type="text" name="autor" id="autor" required title="Digite o Autor" value="<?php echo $dados['autor'];?>"></input>
-                </div><br>
-                <div class="col text-start">
-                    <b>Comentário do Post:</b><br><textarea style="height: auto;" name="comentario" id="comentario" class="form-control" value='<?php echo $dados['comentario'];?>'><?php echo $dados['comentario'];?></textarea><br>                  
-                </div>
                 <div class="col text-start">
                     <b>Data de Cadastro do Post:</b><br><input class="form-control text-center border-primary" name="datePost" id="datePost" type="datetime-local" title="A data será envianda após a alteração!" value="<?php echo $dados['datePost'];?>" disabled></input>
                 </div><br>

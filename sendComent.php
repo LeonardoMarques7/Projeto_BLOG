@@ -75,8 +75,15 @@
 				// recuperando 
 				$comentario = $_POST['comentario'];	
 
+                $foto = $_SESSION['foto'];
 
-                $sqlupdate = "INSERT INTO comentarios (codigo_post, conteudo_comentario) VALUES ('$codigo', '$comentario');";
+                $nome = $_SESSION['nome'];
+                $login = $_SESSION['login'];
+
+                $id_user = $_SESSION['id'];
+
+
+                $sqlupdate = "INSERT INTO comentarios (codigo_post, conteudo_comentario, image_comentario, id_user, nome_user, login_user) VALUES ('$codigo', '$comentario', '$foto', '$id_user', '$nome', '$login');";
 
 				// executando instrução SQL
 				$resultado = @mysqli_query($conexao, $sqlupdate);
