@@ -82,9 +82,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `senha`, `nome`, `foto`, `tipoUser`, `profissao`, `instagram`, `twitter`, `facebook`) VALUES
-(1, 'leo@gmail.com', '1608', 'Leonardo Marques', 'leo.png', 'admin', 'Estudante', 'https://www.instagram.com/leonardo_marques15/', 'https://twitter.com/LeonardoMarks07', 'https://www.facebook.com/leonardo.emanuel.374/'),
-(2, 'dan@gmail.com', '7528', 'Daniel Moreira', 'dan.png', 'admin', 'Estudante', 'https://www.instagram.com/dan.hma/', '', ''),
-(3, 'manu@gmail.com', 'manu123', 'Manoela Moraes', 'manu.png', 'user', 'Estudante', 'https://www.instagram.com/manu.tjx/', '', '');
+(1, 'leo@gmail.com', '$2a$08$Cf1f11ePArKlBJomM0F6a.IKhB8WyhHy1BBwnE8Id3fCkIoJ1hOe.', 'Leonardo Marques', 'leo.png', 'admin', 'Estudante', 'https://www.instagram.com/leonardo_marques15/', 'https://twitter.com/LeonardoMarks07', 'https://www.facebook.com/leonardo.emanuel.374/'),
+(2, 'dan@gmail.com', '$2a$08$Cf1f11ePArKlBJomM0F6a.AyTBHfcCjQxohXK9igA9iNnHjnEo4iG', 'Daniel Moreira', 'dan.png', 'admin', 'Estudante', 'https://www.instagram.com/dan.hma/', '', ''),
+(3, 'manu@gmail.com', '$2a$08$Cf1f11ePArKlBJomM0F6a.j6/zWYbxa1beIDqDjaBsd6mH3A8dXHq', 'Manoela Moraes', 'manu.png', 'user', 'Estudante', 'https://www.instagram.com/manu.tjx/', '', '');
 
 --
 -- Índices para tabelas despejadas

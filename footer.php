@@ -8,7 +8,7 @@
                     />
                 </figure>
                 <small class="text-copy-footer">
-                    &copy;Leonardo Marques e Manoela Moraes | 2023
+                    &copy;Nexus Community | 2024
                 </small>
                 <div class="redes-sociais-footer">
                     <ul class="row-footer">
@@ -36,3 +36,5 @@
                 </div>
             </div>
         </div>
+
+        <?php include('functions.php')?>

@@ -81,6 +81,23 @@
 				// movendo o arquivo temporário para o destino desejado
 				move_uploaded_file($foto_tmp, "img/" . $foto);
 
+                function criptografia($senha)
+                {
+                    $custo = "08";
+                    $salt = "Cf1f11ePArKlBJomM0F6aJ";
+                function criptografia($senha)
+                {
+                    $custo = "08";
+                    $salt = "Cf1f11ePArKlBJomM0F6aJ";
+                
+                    // Gera um hash baseado em bcrypt
+                    $hash = crypt($senha, "$2a$" . $custo . "$" . $salt . "$");
+                
+                    return $hash;
+                }
+
+                $senha = criptografia($_POST['senha']);
+
 				if (!empty($foto)) {
                     // criando a linha de INSERT
                     $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
@@ -117,6 +134,7 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
+                        <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
             </section>

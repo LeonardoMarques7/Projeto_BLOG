@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,8 @@
         appearance: none;
     }
 
-    label, input[type="checkbox"]:hover {
+    label,
+    input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -41,7 +43,8 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b, .link-turne a:hover{
+    .link-turne:hover b,
+    .link-turne a:hover {
         color: #fff;
     }
 
@@ -51,15 +54,16 @@
     }
 
     #foto-user {
-        width: 24pt; 
+        width: 24pt;
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    } 
+    }
 </style>
+
 <body>
     <?php include("inc/header.php") ?>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
@@ -67,49 +71,49 @@
         <main id="posts-container">
             <?php
 
-                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
-                    // Se não estiver logado, redirecione para a página de login
-                    header("Location: login.php");
-                    exit;
-                }
+            if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
+                // Se não estiver logado, redirecione para a página de login
+                $_SESSION['message'] = "Você precisa ser administrador!";
+                header("Location: login.php");
+                exit;
+            }
+            include('conexao.php');
+            $codigo = $_POST['codigo'];
 
-                include('conexao.php');
-                $codigo = $_POST['codigo'];
+            $titulo = $_POST['titulo'];
+            $assuntoIntro = $_POST['assuntoIntro'];
+            $assuntoCompleto = $_POST['assuntoCompleto'];
+            $tags = $_POST['tag-input'];
+            $foto = $_FILES['arquivo']['name'];
+            $foto_tmp = $_FILES['arquivo']['tmp_name'];
 
-                $titulo = $_POST['titulo'];	
-                $assuntoIntro = $_POST['assuntoIntro'];	
-                $assuntoCompleto = $_POST['assuntoCompleto'];	
-                $tags = $_POST['tag-input'];	
-                $foto = $_FILES['arquivo']['name']; 
-                $foto_tmp = $_FILES['arquivo']['tmp_name']; 
+            // Pegando a hora atual
+            $data_formatada = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
 
-                // Pegando a hora atual
-                $data_formatada = new DateTime ('now', new DateTimeZone ('America/Sao_Paulo'));
-				
-                $datePost = $data_formatada->format("Y-m-d H:i");
+            $datePost = $data_formatada->format("Y-m-d H:i");
 
-                // Verificar se um novo arquivo foi enviado
-                if (!empty($foto)) {
-                    // Processar o upload do novo arquivo e mover para o destino desejado
-                    move_uploaded_file($foto_tmp, "posts/" . $foto);
-                
-                    // Atualizar o campo "imagem" na consulta SQL apenas se um novo arquivo foi enviado
-                    $sqlupdate = "UPDATE post SET foto='$foto', titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', datePost='$datePost' WHERE codigo='$codigo'";
-                } else {
-                    // Se nenhum novo arquivo foi enviado, manter o valor atual do campo "imagem"
-                    $sqlupdate = "UPDATE post SET titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', datePost='$datePost' WHERE codigo='$codigo'";
-                }
+            // Verificar se um novo arquivo foi enviado
+            if (!empty($foto)) {
+                // Processar o upload do novo arquivo e mover para o destino desejado
+                move_uploaded_file($foto_tmp, "posts/" . $foto);
+
+                // Atualizar o campo "imagem" na consulta SQL apenas se um novo arquivo foi enviado
+                $sqlupdate = "UPDATE post SET foto='$foto', titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', datePost='$datePost' WHERE codigo='$codigo'";
+            } else {
+                // Se nenhum novo arquivo foi enviado, manter o valor atual do campo "imagem"
+                $sqlupdate = "UPDATE post SET titulo='$titulo', assuntoIntro='$assuntoIntro', assuntoCompleto='$assuntoCompleto', tags='$tags', datePost='$datePost' WHERE codigo='$codigo'";
+            }
 
 
-                // executando instrução SQL
-                $resultado = @mysqli_query($conexao, $sqlupdate);
-                if (!$resultado) {
-                    echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
-                    die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
-                } else {
-                    include("carregando.php");
-                } 
-                mysqli_close($conexao);
+            // executando instrução SQL
+            $resultado = @mysqli_query($conexao, $sqlupdate);
+            if (!$resultado) {
+                echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
+                die('<b>Query Inválida:</b>' . @mysqli_error($conexao));
+            } else {
+                include("carregando.php");
+            }
+            mysqli_close($conexao);
             ?>
         </main>
         <aside id="sidebar">
@@ -134,7 +138,7 @@
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -144,9 +148,10 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
+
 </html>

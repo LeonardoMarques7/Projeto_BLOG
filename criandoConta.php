@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,8 @@
         appearance: none;
     }
 
-    label, input[type="checkbox"]:hover {
+    label,
+    input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -43,7 +45,8 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b, .link-turne a:hover{
+    .link-turne:hover b,
+    .link-turne a:hover {
         color: #fff;
     }
 
@@ -53,50 +56,59 @@
     }
 
     #foto-user {
-        width: 24pt; 
+        width: 24pt;
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    } 
+    }
 
     .hide {
         display: none;
     }
 
- /* Dark theme styles */
- .dark-theme-dropdown .select2-container--open .select2-dropdown {
-        background-color: #333; /* Dark background color */
-        color: #fff; /* Light text color */
+    /* Dark theme styles */
+    .dark-theme-dropdown .select2-container--open .select2-dropdown {
+        background-color: #333;
+        /* Dark background color */
+        color: #fff;
+        /* Light text color */
     }
 
     .dark-theme-dropdown .select2-selection--single,
     .dark-theme-dropdown .select2-selection--single .select2-selection__rendered,
     .dark-theme-dropdown .select2-selection--single .select2-selection__arrow {
-        background-color: #555; /* Darker background color for selection area and arrow */
-        color: #fff; /* Light text color for selection area and arrow */
+        background-color: #555;
+        /* Darker background color for selection area and arrow */
+        color: #fff;
+        /* Light text color for selection area and arrow */
     }
 
     .dark-theme-dropdown .select2-search__field {
-        border: 1px solid #555; /* Dark border color for the search box */
+        border: 1px solid #555;
+        /* Dark border color for the search box */
         border-radius: 4px;
-        color: #fff; /* Light text color for the search box */
+        color: #fff;
+        /* Light text color for the search box */
     }
 
     .dark-theme-dropdown .select2-results__option {
-        background-color: #333; /* Dark background color for dropdown options */
-        color: #fff; /* Light text color for dropdown options */
+        background-color: #333;
+        /* Dark background color for dropdown options */
+        color: #fff;
+        /* Light text color for dropdown options */
     }
 </style>
+
 <body>
     <?php include("inc/header.php") ?>
-    
+
     <div class="container">
         <main id="posts-container">
-            <?php 
-                include("conexao.php");
+            <?php
+            include("conexao.php");
             ?>
             <form class="form-cria-login" action="criarConta.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
@@ -117,7 +129,9 @@
                 <div class="form-group">
                     <label class="label-cria-login">Tipo do usuário </label>
                     <select name="tipoUser" class="select-cria-login tipoUser-select" required>
-                        <option value="admin">Administrador</option>
+                        <?php if (isset($_SESSION['login']) && $_SESSION['tipoUser'] === "admin") : ?>
+                            <option value="admin">Administrador</option>
+                        <?php endif; ?>
                         <option value="user" selected>Usuário</option>
                     </select>
                 </div>
@@ -129,7 +143,7 @@
 
                 <!-- Social Media Section -->
                 <details>
-                    <summary class="label-cria-login summary-user">Quer adicionar sua redes socias?</summary>
+                    <summary class="label-cria-login summary-user">Quer adicionar suas redes socias?</summary>
                     <div class="form-group icon-input">
                         <label class="label-cria-login"><i class="fa-brands fa-instagram"></i></label>
                         <input type="text" name="instagram" class="input-cria-login" placeholder="Digite seu Instagram">
@@ -144,13 +158,13 @@
                     </div>
                 </details>
 
-                        
+
                 <!-- <label class="label-cria-login">Foto: </label>
                 <input type="file" name="foto" class="file-cria-login"> -->
                 <label for="images" class="drop-container" id="dropcontainer">
-                <span class="drop-title">Solte a foto aqui!</span>
-                or
-                <input type="file" name="arquivo" id="images" accept="image/*">
+                    <span class="drop-title">Solte a foto aqui!</span>
+                    or
+                    <input type="file" name="arquivo" id="images" accept="image/*">
                 </label>
                 <button type="submit" class="btn-cria-login">Criar conta</button>
             </form>
@@ -164,13 +178,16 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
+                        <li>
+                            <a href="./suporte.php">Suporte</a>
+                        </li>
                     </ul>
                 </nav>
             </section>
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -179,19 +196,20 @@
     </div>
     <footer>
         <?php include("footer.php"); ?>
-                <!-- Include Select2 CSS -->
+        <!-- Include Select2 CSS -->
         <!-- Include Select2 CSS -->
 
-<!-- Include jQuery (required for Select2) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Include jQuery (required for Select2) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Include Select2 JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+        <!-- Include Select2 JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     </footer>
-    
+
     <script src="./js/script.js" defer></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
+
 </html>

@@ -217,6 +217,13 @@
                                     >Criadores</a
                                 >
                             </li>
+                            <li>
+                                <a 
+                                    href="./suporte.php"
+                                    
+                                    >Suporte</a
+                                >
+                            </li>
                         </ul>
                     </nav>
                 </section>

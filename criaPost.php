@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,8 @@
         appearance: none;
     }
 
-    label, input[type="checkbox"]:hover {
+    label,
+    input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -41,7 +43,8 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b, .link-turne a:hover{
+    .link-turne:hover b,
+    .link-turne a:hover {
         color: #fff;
     }
 
@@ -51,32 +54,37 @@
     }
 
     #foto-user {
-        width: 24pt; 
+        width: 24pt;
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    } 
+    }
 </style>
-<body>
-    <?php 
-        include("conexao.php");
 
-        function formatadata( $date, $formato ) {
-            $dt = new DateTime ( $date, new DateTimeZone("America/Sao_Paulo"));
-            return $dt -> format($formato);
-        }
+<body>
+    <?php
+    include("conexao.php");
+
+
+
+    function formatadata($date, $formato)
+    {
+        $dt = new DateTime($date, new DateTimeZone("America/Sao_Paulo"));
+        return $dt->format($formato);
+    }
     ?>
-    <?php 
-        include("inc/header.php");
-        
-        if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
-            // Se não estiver logado, redirecione para a página de login
-            header("Location: login.php");
-            exit;
-        }
+    <?php
+    include("inc/header.php");
+
+    if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
+        // Se não estiver logado, redirecione para a página de login
+        $_SESSION['message'] = "Você precisa ser administrador!";
+        header("Location: login.php");
+        exit;
+    }
     ?>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
@@ -90,57 +98,52 @@
                     <b>Código do Post:</b><br><input class="form-control border-primary" type="number" placeholder="Digite o Código do Post" name="codigo" id="codigo" title="Digite o Código do Post" required>
                 </div><br>
                 <div class="col text-start">
-                    <b>Título do Post:</b><br><input class="form-control border-primary" placeholder="Digite o Título" type="text"  name="titulo" id="titulo" maxlength="80" title="Digite o Título" required> 
+                    <b>Título do Post:</b><br><input class="form-control border-primary" placeholder="Digite o Título" type="text" name="titulo" id="titulo" maxlength="80" title="Digite o Título" required>
+                </div><br>
+                <style>
+                    .custom-background {
+                        background-color: red; /* Defina a cor de fundo desejada */
+                    }
+                </style>
+                <div class="col text-start" required>
+                  <!-- Place the first <script> tag in your HTML's <head> -->
+                    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+                    <b>Assunto Introdutório do Post:</b><br>
+                    <textarea name="assuntoIntro">
+                    </textarea>
                 </div><br>
                 <div class="col text-start" required>
-                    <b>Assunto Introdução do Post:</b><br><textarea id="assunto" rows="10" cols="50" maxlength="1000" name="assuntoIntro" placeholder="Digite o Assunto" required></textarea><br>
-                    <button type="button" class="btn-small-textarea" onclick="adicionarAtalho('<strong></strong>')"><i class="fa-solid fa-bold"></i></button>
-                    <button type="button" class="btn-small-textarea" onclick="adicionarAtalho('<em></em>')"><i class="fa-solid fa-italic"></i></button>
-                    <button type="button" class="btn-small-textarea" onclick="adicionarAtalho('<a href=&quot;URL&quot;></a>')"><i class="fa-solid fa-link"></i></button>
+                  <!-- Place the first <script> tag in your HTML's <head> -->
+                    <script src="https://cdn.tiny.cloud/1/m603wx49uqdb6gnhe5qjqjqkb6ozgucd5p1bginqh8359f9v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
                     <script>
-                        function adicionarAtalho(atalho) {
-                            var editor = document.getElementById("assunto");
-                            var textoAtual = editor.value;
-                            var selecaoInicio = editor.selectionStart;
-                            var selecaoFim = editor.selectionEnd;
-                            
-                            var textoAntes = textoAtual.substring(0, selecaoInicio);
-                            var textoDepois = textoAtual.substring(selecaoFim);
-                            
-                            var novoTexto = textoAntes + atalho + textoDepois;
-                            
-                            editor.value = novoTexto;
-                            
-                            // Atualize a posição do cursor após a inserção do atalho
-                            var novaPosicaoCursor = selecaoInicio + atalho.length;
-                            editor.setSelectionRange(novaPosicaoCursor, novaPosicaoCursor);
+                    tinymce.init({
+                        selector: 'textarea',   
+                        plugins: 'paste link',
+                        toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat',
+                        menubar: false,
+                        statusbar: false,
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        mergetags_list: [
+                        { value: 'First.Name', title: 'First Name' },
+                        { value: 'Email', title: 'Email' },
+                        ],
+                        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                        content_style: 'body { background-color: #f0f0f0; }',
+                        setup: function (editor) {
+                            editor.on('init', function () {
+                                // Remova o tamanho da textarea
+                                editor.getContainer().style.height = '300px';
+                                editor.getContainer().style.width = 'auto';
+                                editor.getContainer().style.maxWidth = '490px';
+                            });
                         }
+                    });
                     </script>
-                </div><br>
-                <div class="col text-start">
-                    <b>Assunto Completo do Post:</b><br><textarea id="assuntoCompleto" rows="10" cols="50" maxlength="1000" name="assuntoCompleto" placeholder="Digite o Assunto"></textarea><br>
-                    <button type="button" class="btn-small-textarea" onclick="adicionarAtalho2('<strong></strong>')"><i class="fa-solid fa-bold"></i></button>
-                    <button type="button" class="btn-small-textarea" onclick="adicionarAtalho2('<em></em>')"><i class="fa-solid fa-italic"></i></button>
-                    <button type="button" class="btn-small-textarea" onclick="adicionarAtalho2('<a href=&quot;URL&quot;></a>')"><i class="fa-solid fa-link"></i></button>
-                    <script>
-                        function adicionarAtalho2(atalho) {
-                            var editor = document.getElementById("assuntoCompleto");
-                            var textoAtual = editor.value;
-                            var selecaoInicio = editor.selectionStart;
-                            var selecaoFim = editor.selectionEnd;
-                            
-                            var textoAntes = textoAtual.substring(0, selecaoInicio);
-                            var textoDepois = textoAtual.substring(selecaoFim);
-                            
-                            var novoTexto = textoAntes + atalho + textoDepois;
-                            
-                            editor.value = novoTexto;
-                            
-                            // Atualize a posição do cursor após a inserção do atalho
-                            var novaPosicaoCursor = selecaoInicio + atalho.length;
-                            editor.setSelectionRange(novaPosicaoCursor, novaPosicaoCursor);
-                        }
-                    </script>
+                    <b>Assunto Completo do Post:</b><br>
+                    <textarea name="assuntoCompleto" class="textareaAssunto">
+                    </textarea>
                 </div><br>
                 <div class="col text-start">
                     <b>Tag do Post: </b>
@@ -188,7 +191,7 @@
                     </script>
                 </div><br>
                 <div class="col text-start">
-                    <b>Data de Cadastro do Post:</b><br><input class="form-control text-center border-primary" name="datePost" id="datePost"  placeholder="A data será informada só quando enviar!" type="text" title="Digite data do Post" disabled></input>
+                    <b>Data de Cadastro do Post:</b><br><input class="form-control text-center border-primary" name="datePost" id="datePost" placeholder="A data será informada só quando enviar!" type="text" title="Digite data do Post" disabled></input>
                 </div><br>
                 <div class="d-grid col-md-9">
                     <button class="btn btn-primary" type="submit" title="Enviar" style="color: 444;"><i class="fa-regular fa-paper-plane"></i> Enviar</button>
@@ -214,13 +217,14 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
+                        <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
             </section>
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -230,9 +234,10 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
+
 </html>

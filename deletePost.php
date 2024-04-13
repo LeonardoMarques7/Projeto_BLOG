@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,8 @@
         appearance: none;
     }
 
-    label, input[type="checkbox"]:hover {
+    label,
+    input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -41,7 +43,8 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b, .link-turne a:hover{
+    .link-turne:hover b,
+    .link-turne a:hover {
         color: #fff;
     }
 
@@ -51,15 +54,16 @@
     }
 
     #foto-user {
-        width: 24pt; 
+        width: 24pt;
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    } 
+    }
 </style>
+
 <body>
     <header id="home">
         <nav id="navbar">
@@ -77,57 +81,58 @@
                 </ul>
             </div>
         </nav>
-        
+
     </header>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
-                include('conexao.php');
+            include('conexao.php');
 
-                if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
-                    // Se não estiver logado, redirecione para a página de login
-                    header("Location: login.php");
-                    exit;
+            if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
+                // Se não estiver logado, redirecione para a página de login
+                $_SESSION['message'] = "Você precisa ser administrador!";
+                header("Location: login.php");
+                exit;
+            }
+
+            // Recuperando o código
+            $codigo = $_POST['codigo'];
+
+            // Consulta para obter o nome do arquivo de foto associado a este post
+            $sql_select_foto = "SELECT foto FROM post WHERE codigo = '$codigo'";
+            $resultado_select_foto = mysqli_query($conexao, $sql_select_foto);
+
+            if (!$resultado_select_foto) {
+                echo '<a href="index.php" class="btn btn-primary w-100">Voltar</a>';
+                die('<b>Query Inválida:</b>' . mysqli_error($conexao));
+            } else {
+                $linha = mysqli_fetch_assoc($resultado_select_foto);
+                $nome_foto = $linha['foto'];
+
+                // Excluir a foto associada
+                $caminho_foto = "./posts/" . $nome_foto; // Substitua pelo caminho real da sua pasta e arquivo
+                if (file_exists($caminho_foto) && is_file($caminho_foto)) {
+                    unlink($caminho_foto); // Isso exclui o arquivo de foto do servidor
+                } else {
+                    echo "A foto não foi encontrada ou é um diretório.";
                 }
 
-                // Recuperando o código
-                $codigo = $_POST['codigo'];
+                // Criar a consulta DELETE
+                $sqldelete = "DELETE FROM post WHERE codigo = '$codigo'";
 
-                // Consulta para obter o nome do arquivo de foto associado a este post
-                $sql_select_foto = "SELECT foto FROM post WHERE codigo = '$codigo'";
-                $resultado_select_foto = mysqli_query($conexao, $sql_select_foto);
+                // Executar a consulta DELETE
+                $resultado = mysqli_query($conexao, $sqldelete);
 
-                if (!$resultado_select_foto) {
+                if (!$resultado) {
                     echo '<a href="index.php" class="btn btn-primary w-100">Voltar</a>';
                     die('<b>Query Inválida:</b>' . mysqli_error($conexao));
                 } else {
-                    $linha = mysqli_fetch_assoc($resultado_select_foto);
-                    $nome_foto = $linha['foto'];
-
-                    // Excluir a foto associada
-                    $caminho_foto = "./posts/" . $nome_foto; // Substitua pelo caminho real da sua pasta e arquivo
-                    if (file_exists($caminho_foto) && is_file($caminho_foto)) {
-                        unlink($caminho_foto); // Isso exclui o arquivo de foto do servidor
-                    } else {
-                        echo "A foto não foi encontrada ou é um diretório.";
-                    }
-
-                    // Criar a consulta DELETE
-                    $sqldelete = "DELETE FROM post WHERE codigo = '$codigo'";
-
-                    // Executar a consulta DELETE
-                    $resultado = mysqli_query($conexao, $sqldelete);
-
-                    if (!$resultado) {
-                        echo '<a href="index.php" class="btn btn-primary w-100">Voltar</a>';
-                        die('<b>Query Inválida:</b>' . mysqli_error($conexao));
-                    } else {
-                        include("carregando.php");
-                    }
+                    include("carregando.php");
                 }
+            }
 
-                mysqli_close($conexao);
+            mysqli_close($conexao);
             ?>
 
         </main>
@@ -147,13 +152,14 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
+                        <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
             </section>
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -163,9 +169,10 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
+
 </html>

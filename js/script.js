@@ -24,6 +24,39 @@ styleToggle.addEventListener("change", () => {
         toggleImage.src = "./img/modo-escuro.png"; // Imagem do modo claro
         localStorage.removeItem("selectedStyle"); // Remova a escolha do Local Storage
     }
+
+    var codigo = $codigo;
+    var url = "http://blog-fp.wuaze.com/viewPost.php?codigo=";
+    var link = document.getElementById("copyLink");
+    var like = document.getElementById("likeButton");
+    var isLiked = false;
+
+    like.addEventListener("click", function () {
+        // Alterne entre os ícones com base no estado atual
+        if (isLiked) {
+            likeButton.innerHTML = '<i class="fa-regular fa-heart"></i>';
+        } else {
+            likeButton.innerHTML = '<i class="fa-solid fa-heart"></i>';
+        }
+
+        // Inverta o estado
+        isLiked = !isLiked;
+    });
+
+    link.addEventListener("click", function () {
+        // Copie a URL completa (parte fixa + código) para a área de transferência
+        var urlCompleta = url + codigo;
+        navigator.clipboard
+            .writeText(urlCompleta)
+            .then(function () {
+                // Altere o ícone para o ícone de check após a cópia bem-sucedida
+                link.innerHTML =
+                    '<i class="fa-regular fa-copy"></i> Link copiado';
+            })
+            .catch(function (err) {
+                console.error("Erro ao copiar a URL: ", err);
+            });
+    });
 });
 
 // Habilitado

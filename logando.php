@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,8 @@
         appearance: none;
     }
 
-    label, input[type="checkbox"]:hover {
+    label,
+    input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -41,7 +43,8 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b, .link-turne a:hover{
+    .link-turne:hover b,
+    .link-turne a:hover {
         color: #fff;
     }
 
@@ -51,15 +54,16 @@
     }
 
     #foto-user {
-        width: 24pt; 
+        width: 24pt;
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    } 
+    }
 </style>
+<?php include("functions.php"); ?>
 <body>
     <?php include 'conexao.php'; ?>
     <header id="home">
@@ -80,50 +84,61 @@
     </header>
     <div class="container">
         <main id="posts-container">
-        <?php
-                session_start(); // Inicia a sessão
+            <?php
+            session_start(); // Inicia a sessão
 
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    include 'conexao.php';
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                include 'conexao.php';
 
-                    $login = $_POST['login'];
-                    $senha = $_POST['senha'];
+                $login = $_POST['login'];
 
-                    if ($conexao) {
-                        $sql = "SELECT * FROM users WHERE login = '$login' AND senha = '$senha'";
-                        $resultado = mysqli_query($conexao, $sql);
-
-                        if (mysqli_num_rows($resultado) > 0) {
-                            $_SESSION['login'] = $login;
-
-                            $row = mysqli_fetch_assoc($resultado);
-                            $_SESSION['foto'] = $row['foto'];
-                            $_SESSION['nome'] = $row['nome'];
-                            $_SESSION['id'] = $row['id'];
-                            $_SESSION['tipoUser'] = $row['tipoUser'];
-                            $_SESSION['profissao'] = $row['profissao'];
-                            $_SESSION['linkInsta'] = $row['instagram'];
-                            $_SESSION['linkTwitter'] = $row['twitter'];
-                            $_SESSION['linkFace'] = $row['facebook'];
-
-                            $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
-
-                            include("carregando.php");
-                        } else {
-                            echo '<script type="text/javascript">';
-                            echo 'alert("Login ou senha INCORRETA.. Tente novamente!");';
-                            echo 'window.location.href = "login.php";'; 
-                            echo '</script>';
-                        }
-
-                        mysqli_close($conexao);
-                    } else {
-                        echo '<h3 class="card-title text-primary fw-bold">Falha ao conectar ao banco de dados!</h3>';
-                        echo '<center>';
-                        echo '<a href="index.php" class="text-primary border border-primary rounded-2 icon-link text-decoration-none text-center p-2 px-4 btn-clique">Tente Novamente ;)</a>';
-                        echo '</center>';
-                    }
+                function criptografia($senha)
+                {
+                    $custo = "08";
+                    $salt = "Cf1f11ePArKlBJomM0F6aJ";
+                
+                    // Gera um hash baseado em bcrypt
+                    $hash = crypt($senha, "$2a$" . $custo . "$" . $salt . "$");
+                
+                    return $hash;
                 }
+
+                $senha = criptografia($_POST['senha']);
+
+                if ($conexao) {
+                    $sql = "SELECT * FROM users WHERE login = '$login' AND senha = '$senha'";
+                    $resultado = mysqli_query($conexao, $sql);
+
+                    if (mysqli_num_rows($resultado) > 0) {
+                        $_SESSION['login'] = $login;
+
+                        $row = mysqli_fetch_assoc($resultado);
+                        $_SESSION['foto'] = $row['foto'];
+                        $_SESSION['nome'] = $row['nome'];
+                        $_SESSION['id'] = $row['id'];
+                        $_SESSION['tipoUser'] = $row['tipoUser'];
+                        $_SESSION['profissao'] = $row['profissao'];
+                        $_SESSION['linkInsta'] = $row['instagram'];
+                        $_SESSION['linkTwitter'] = $row['twitter'];
+                        $_SESSION['linkFace'] = $row['facebook'];
+
+                        $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
+
+                        include("carregando.php");
+                    } else {
+                        $_SESSION['messageErrorLogin'] = "Error";
+                        header("Location: login.php");
+                        exit();
+                    }
+
+                    mysqli_close($conexao);
+                } else {
+                    echo '<h3 class="card-title text-primary fw-bold">Falha ao conectar ao banco de dados!</h3>';
+                    echo '<center>';
+                    echo '<a href="index.php" class="text-primary border border-primary rounded-2 icon-link text-decoration-none text-center p-2 px-4 btn-clique">Tente Novamente ;)</a>';
+                    echo '</center>';
+                }
+            }
             ?>
 
         </main>
@@ -143,13 +158,14 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
+                        <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
             </section>
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -159,9 +175,10 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +18,8 @@
         appearance: none;
     }
 
-    label, input[type="checkbox"]:hover {
+    label,
+    input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -41,7 +43,8 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b, .link-turne a:hover{
+    .link-turne:hover b,
+    .link-turne a:hover {
         color: #fff;
     }
 
@@ -51,41 +54,54 @@
     }
 
     #foto-user {
-        width: 24pt; 
+        width: 24pt;
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    } 
+    }
 
     .senha-col {
         margin-bottom: 5px;
     }
 </style>
+
 <body>
-    <?php include('./inc/header.php');?>
+    <?php include('./inc/header.php'); ?>
     <div class="container">
         <main id="posts-container">
             <div class="form-center">
                 <?php echo '<link rel="stylesheet" href="./css/style-post.css">'; ?>
                 <form name="produto" action="logando.php" method="post" enctype="multipart/form-data" class="form-login"><br>
-                <figure class="mb-2">
-                    <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" class="logo-fp">
-                    <figcaption><small style="opacity: 50%;" class="text-small">Projeto Visite: <b>Blog do Fernando Prestes</b></small></figcaption>
-                </figure>
+                    <?php if (isset($_SESSION['message'])) {
+                        echo '<div class="message-error-login">' . $_SESSION['message'] . '</div>';
+                        clear_message();
+                    } ?>
+                    <figure class="mb-2">
+                        <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" class="logo-fp">
+                        <figcaption><small style="opacity: 50%;" class="text-small">Projeto Visite: <b>Blog do Fernando Prestes</b></small></figcaption>
+                    </figure>
                     <div class="col">
-                        <b>Login:</b><br><input class="form-control-login  border-primary mb-2" placeholder="Digite o Login" type="text"  name="login" id="login" maxlength="80" title="Digite o Login" required>
+                        <b>Login:</b><br><input class="form-control-login  border-primary mb-2" placeholder="Digite o Login" type="text" name="login" id="login" maxlength="80" title="Digite o Login" required>
                     </div>
                     <div class="col senha-col">
-                        <b>Senha:</b><br><input class="form-control-login  border-primary" placeholder="Digite o Senha" type="password"  name="senha" id="senha" maxlength="80" title="Digite a Senha" required>
+                        <b>Senha:</b><br><input class="form-control-login  border-primary" placeholder="Digite o Senha" type="password" name="senha" id="senha" maxlength="80" title="Digite a Senha" required>
                     </div>
-                    <b class="title-cria">Não tem uma conta? </b><a href="criandoConta.php" class="link-login">Clique aqui</a><div class="br"></div>
+                    <b class="title-cria">Não tem uma conta? </b><a href="criandoConta.php" class="link-login">Clique aqui</a>
+                    <div class="br"></div>
                     <br>
                     <div class="d-grid col-md-9">
                         <button class="btn btn-entrar" type="submit" title="Entrar">Entrar</button>
-                    </div>
+                    </div><br>
+                    <?php if (isset($_SESSION['messageErrorLogin'])) :  if (!empty($_SESSION['messageErrorLogin'])) : ?>
+                            <div class="message message-error">
+                                Login ou senha incorretos. Tente Novamente!
+                            </div>
+                    <?php clear_message();
+                        endif;
+                    endif; ?>
                     <br><br>
                 </form>
             </div>
@@ -94,9 +110,10 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-    
+
     <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
+
 </html>

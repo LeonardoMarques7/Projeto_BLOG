@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +18,7 @@
         appearance: none;
     }
 
-    label,
-    input[type="checkbox"]:hover {
+    label, input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
@@ -44,8 +42,7 @@
         transition: 0.4s;
     }
 
-    .link-turne:hover b,
-    .link-turne a:hover {
+    .link-turne:hover b, .link-turne a:hover{
         color: #fff;
     }
 
@@ -55,61 +52,45 @@
     }
 
     #foto-user {
-        width: 24pt;
+        width: 24pt; 
         margin-right: 5px;
     }
 
     h2 b {
         font-weight: normal;
         color: #000;
-    }
+    } 
 
     .hide {
         display: none;
     }
-</style>
 
+    #posts-container {
+        max-width: 100%;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
 <body>
     <?php include("inc/header.php") ?>
     <div class="container">
         <main id="posts-container">
+            <h1>Suporte</h1><div class="linha mt-2"></div><br>
+            <form  action="https://api.staticforms.xyz/submit" class="suporte-form" method="post">
+                <input type="hidden" name="accessKey" value="aab79bad-b605-4656-a496-ce39c2faefb9">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nameForm" name="name" class="input-nome-suporte" required placeholder="Digite seu nome">
 
+                <label for="email">Email:</label>
+                <input type="email" id="emailForm" name="email" class="input-email-suporte" required placeholder="Digite seu email">
 
-            <?php
-
-            include("conexao.php");
-            include("pesquisador.php");
-
-            $query = $conexao->query($sql);
-    
-
-
-
-            while ($dados = mysqli_fetch_array($query)) {
-                $timestamp = strtotime($dados['datePost']);
-                $data_formatada = date('d/m/Y H:i', $timestamp);
-
-                if (empty($dados['foto'])) {
-                    $foto = 'Semfoto.png';
-                } else {
-                    $foto = $dados['foto'];
-                }
-
-                $codigo = $dados['codigo'];
-                $codigo_base = base64_encode($codigo);
-
-                
-
-                echo '<article class="post">';
-                echo "<img src='posts/$foto' alt='Foto do Post'>";
-                echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
-                echo '<div class="description">' . $dados["assuntoIntro"] . '</div>';
-                echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
-                echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
-                echo '</article>';
-            }
-            ?>
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagemForm" name="message" rows="4" required class="textarea-suporte" placeholder="Digite o assunto"></textarea>
+                <input type="hidden" name="redirectTo" value="./obrigado.php">
+                <button type="submit" class='btn-add-suporte'>Enviar Mensagem</button>
+            </form>
         </main>
         <aside id="sidebar">
             <section id="search-bar">
@@ -127,40 +108,14 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
-                        <li><a href="./suporte.php">Suporte</a></li>
-                    </ul>
-                </nav>
-            </section>
-            <section id="categories">
-                <h4>Hashtags</h4>
-                <nav>
-                    <ul>
-                        <?php
-
-                        $queryTags = $conexao->query($sql);
-
-
-                        while ($dados = mysqli_fetch_array($queryTags)) {
-                            $timestamp = strtotime($dados['datePost']);
-                            $data_formatada = date('d/m/Y H:i', $timestamp);
-
-                            $codigo = $dados['codigo'];
-
-
-                            echo '<li class="">';
-                            echo '<p class="tag-container-post" >' . '#' . $dados["tags"] . '</p>';
-                            echo '</li>';
-                        }
-                        mysqli_close($conexao);
-
-                        ?>
+                        <li><a href="./suporte.php" class="active">Suporte</a></li>
                     </ul>
                 </nav>
             </section>
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -170,10 +125,9 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-
+    
     <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
-
 </html>

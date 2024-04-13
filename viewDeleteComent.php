@@ -104,9 +104,6 @@
             ?>
             <form name="produto" action="deleteComent.php" class="form border rounded shadow-lg" method="post" enctype="multipart/form-data"><br><br>
                 <h1 style="color: #39f;"><i class="fa-solid fa-square-minus"></i> Deletando Comentário</h1><br>
-                <div class="col form-control">
-                    <img src="<?php echo "img/$foto" ?>" style="max-width: 10%; text-align:center; margin: 0 auto;" alt="Foto do Post" readonly>
-                </div><br>
                 <div class="col text-start">
                     <b>Código do Post:</b><br><input class="form-control border-primary" type="number" name="codigo" id="codigo"  placeholder="Sem dados!" title="Não é possível Alterar no DELETE" value="<?php echo $dados['codigo_post'];?>" readonly>
                 </div><br>
@@ -137,6 +134,7 @@
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
+                        <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
             </section>

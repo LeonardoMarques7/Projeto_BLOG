@@ -84,7 +84,7 @@
                         <div class="perfil">
                             <img src='./img/<?php echo $foto?>' alt="" />
                             <div class="text">
-                                <h2><?php echo $_SESSION['nome']?></h2>
+                                <h2><?php echo $_SESSION['nome']?><button class="button-view-edit"><a href="editPerfil.php" class="link-edit"><i class="fa-solid fa-pen"></i></a></button></h2>
                                 <b><?php echo $_SESSION['profissao']?></b>
                                 <br>
                                 <br>
@@ -203,6 +203,12 @@
                                     title="Veja os Criadores!"
                                     class="active"
                                     >Criadores</a
+                                >
+                            </li>
+                            <li>
+                                <a 
+                                    href="./suporte.php">
+                                    Suporte</a
                                 >
                             </li>
                         </ul>

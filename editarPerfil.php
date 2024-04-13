@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog FP | Home</title>
+    <title>Blog FP | Editando Post</title>
     <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
     <!-- Estilização -->
     <link id="style-link" rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/style.alert.css">
     <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,10 +35,10 @@
     a b {
         font-weight: bold;
         font-size: 12px;
-        border: 1px solid #39f;
+        border: 1px solid #e50000;
         padding: 2px;
         border-radius: 2px;
-        background-color: #39f;
+        background-color: #e50000;
         color: #fff;
         transition: 0.4s;
     }
@@ -50,8 +49,8 @@
     }
 
     a:hover b {
-        border: 1px solid #39f;
-        background-color: #39f;
+        border: 1px solid #a70000;
+        background-color: #a70000;
     }
 
     #foto-user {
@@ -63,52 +62,48 @@
         font-weight: normal;
         color: #000;
     }
-
-    .hide {
-        display: none;
-    }
 </style>
 
 <body>
     <?php include("inc/header.php") ?>
+    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
-
-
             <?php
 
-            include("conexao.php");
-            include("pesquisador.php");
+            include('conexao.php');
+            $login = $_POST['login'];
 
-            $query = $conexao->query($sql);
-    
+            $nome = $_POST['nome'];
+            $profissao = $_POST['profissao'];
+            $instagram = $_POST['instagram'];
+            $twitter = $_POST['twitter'];
+            $facebook = $_POST['facebook'];
+            $foto = $_FILES['arquivo']['name'];
+            $foto_tmp = $_FILES['arquivo']['tmp_name'];
 
+            // Verificar se um novo arquivo foi enviado
+            if (!empty($foto)) {
+                // Processar o upload do novo arquivo e mover para o destino desejado
+                move_uploaded_file($foto_tmp, "img/" . $foto);
 
-
-            while ($dados = mysqli_fetch_array($query)) {
-                $timestamp = strtotime($dados['datePost']);
-                $data_formatada = date('d/m/Y H:i', $timestamp);
-
-                if (empty($dados['foto'])) {
-                    $foto = 'Semfoto.png';
-                } else {
-                    $foto = $dados['foto'];
-                }
-
-                $codigo = $dados['codigo'];
-                $codigo_base = base64_encode($codigo);
-
-                
-
-                echo '<article class="post">';
-                echo "<img src='posts/$foto' alt='Foto do Post'>";
-                echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
-                echo '<div class="description">' . $dados["assuntoIntro"] . '</div>';
-                echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
-                echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
-                echo '</article>';
+                // Atualizar o campo "imagem" na consulta SQL apenas se um novo arquivo foi enviado
+                $sqlupdate = "UPDATE users SET foto='$foto', nome='$nome', profissao='$profissao', facebook='$facebook', instagram='$instagram', twitter='$twitter' WHERE login='$login'";
+            } else {
+                // Se nenhum novo arquivo foi enviado, manter o valor atual do campo "imagem"
+                $sqlupdate = "UPDATE users SET nome='$nome', profissao='$profissao', facebook='$facebook', instagram='$instagram', twitter='$twitter' WHERE login='$login'";
             }
+
+
+            // executando instrução SQL
+            $resultado = @mysqli_query($conexao, $sqlupdate);
+            if (!$resultado) {
+                echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
+                die('<b>Query Inválida:</b>' . @mysqli_error($conexao));
+            } else {
+                header("Location: logout.php");
+            }
+            mysqli_close($conexao);
             ?>
         </main>
         <aside id="sidebar">
@@ -128,32 +123,6 @@
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
                         <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
-                    </ul>
-                </nav>
-            </section>
-            <section id="categories">
-                <h4>Hashtags</h4>
-                <nav>
-                    <ul>
-                        <?php
-
-                        $queryTags = $conexao->query($sql);
-
-
-                        while ($dados = mysqli_fetch_array($queryTags)) {
-                            $timestamp = strtotime($dados['datePost']);
-                            $data_formatada = date('d/m/Y H:i', $timestamp);
-
-                            $codigo = $dados['codigo'];
-
-
-                            echo '<li class="">';
-                            echo '<p class="tag-container-post" >' . '#' . $dados["tags"] . '</p>';
-                            echo '</li>';
-                        }
-                        mysqli_close($conexao);
-
-                        ?>
                     </ul>
                 </nav>
             </section>
