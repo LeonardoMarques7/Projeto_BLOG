@@ -111,7 +111,6 @@
                 </div>
                 <div class="container-post-user">
                 <?php
-                    include("conexao.php");
                     include("pesquisador.php");
 
 
@@ -154,7 +153,6 @@
                         }
                     }
 
-                    mysqli_close($conexao);
                 ?>
                 </div>
             </main>

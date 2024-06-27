@@ -29,10 +29,6 @@
         margin-top: 2px;
     }
 
-    body {
-        display: none;
-    }
-
     a b {
         font-weight: bold;
         font-size: 12px;
@@ -66,7 +62,7 @@
 </style>
 
 <body>
-    <?php include('./inc/header.php'); ?>
+    <?php include('./inc/header.php'); include("conexao.php"); ?>
     <style>
         .invisible {
             display: none;
@@ -96,7 +92,6 @@
     <div class="container">
         <main id="posts-container">
             <?php
-                include('conexao.php');
 
                 $codigo = $_GET['codigo'];
                 $codigo_base = base64_decode($codigo);
@@ -143,19 +138,19 @@
 
                 $codigo = $dados["codigo"];
                 $codigo_cripto_coment = base64_encode($codigo);
-                $url_base = 'https://localhost/Projeto_BLOG/viewPost.php?codigo=';
+                $url_base = 'https://blog-fp.wuaze.com/viewPost.php?codigo=';
                 $url_compartilhamento = $url_base . $codigo_cripto_coment;
 
                 echo '<div class="title-share-container">';
                 echo '<h3 class="title title-share">' . htmlspecialchars($dados["titulo"]) . '</h3>';
                 echo '<div class="social-share-icons">
-                    <a href="https://api.whatsapp.com/send?text=' . urlencode("Veja esse post que encontrei: " . $dados['titulo'] . " ". $url_compartilhamento) .  '" target="_blank" title="Compartilhe no WhatsApp">
+                    <a href="https://api.whatsapp.com/send?text=' . urlencode($dados['titulo'] . ". Para acessar a postagem, clique no link: ". $url_compartilhamento) .  '" target="_blank" title="Compartilhe no WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode($url_compartilhamento) . '" target="_blank" title="Compartilhe no Facebook">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="https://twitter.com/intent/tweet?url=' . urlencode($url_compartilhamento) . '&text=' . urlencode('Postagem no Blog FP') . '" target="_blank" title="Compartilhe no X">
+                    <a href="https://twitter.com/intent/tweet?url=' . urlencode($url_compartilhamento) . '&text=' . urlencode($dados['titulo'] . ". Para acessar a postagem, clique no link: ") . '" target="_blank" title="Compartilhe no X">
                         <i class="fab fa-twitter"></i>
                     </a>
                     <a href="https://telegram.me/share/url?url=' . urlencode($url_compartilhamento) . '&text=' . urlencode('Postagem no Blog FP') . '" target="_blank" title="Compartilhe no Telegram">

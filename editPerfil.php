@@ -134,7 +134,7 @@
 </style>
 
 <body>
-    <?php include("inc/header.php") ?>
+    <?php include("inc/header.php"); ?>
     <div class="container">
         <main id="posts-container">
             <div class="">
@@ -180,7 +180,6 @@
             </div>
             <div class="container-post-user">
                 <?php
-                include("conexao.php");
                 include("pesquisador.php");
                 ?>
             </div>

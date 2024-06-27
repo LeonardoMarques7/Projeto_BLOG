@@ -28,10 +28,7 @@
         margin-top: 2px;
     }
 
-    body {
-        display: none;
-    }
-
+    
     a b {
         font-weight: bold;
         font-size: 12px;
@@ -82,8 +79,6 @@
                     exit;
                 }
             
-                // Se o usuário estiver logado, exiba o conteúdo da página
-                include("conexao.php");
                 include("pesquisador.php");
             
 

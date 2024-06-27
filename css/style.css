@@ -1790,3 +1790,14 @@ input[type="file"]::file-selector-button:hover {
     background-color: #39f;
     color: #fff;
 }
+
+@media (max-width: 900px) {
+    .post-user img{
+        height: auto;
+        max-height: 280px;
+    }
+
+    .title-post-user {
+        font-size: 1.5rem;
+    }
+}

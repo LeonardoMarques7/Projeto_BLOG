@@ -52,7 +52,6 @@
                     $foto = $_SESSION['foto'];
                     echo "<a href='perfilView.php'><li><img src='./img/$foto' class='perfil-header'/></li></a>";
                 }
-                include("conexao.php");
 
                 function clear_message()
                 {

@@ -28,10 +28,6 @@
         margin-top: 2px;
     }
 
-    body {
-        display: none;
-    }
-
     a b {
         font-weight: bold;
         font-size: 12px;
@@ -70,7 +66,7 @@
     <div class="container">
         <main id="posts-container">
             <?php
-            include('conexao.php');
+            include("conexao.php");
 
             if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                 // Se não estiver logado, redirecione para a página de login

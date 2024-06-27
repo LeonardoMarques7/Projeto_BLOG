@@ -26,10 +26,6 @@
         margin-top: 2px;
     }
 
-    body {
-        display: none;
-    }
-
     a b {
         font-weight: bold;
         font-size: 12px;

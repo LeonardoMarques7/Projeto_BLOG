@@ -29,10 +29,6 @@
         margin-top: 2px;
     }
 
-    body {
-        display: none;
-    }
-
     a b {
         font-weight: bold;
         font-size: 12px;
@@ -77,7 +73,6 @@
 
             <?php
 
-            include("conexao.php");
             include("pesquisador.php");
 
             $query = $conexao->query($sql);
