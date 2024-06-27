@@ -149,7 +149,7 @@
                 echo '<div class="title-share-container">';
                 echo '<h3 class="title title-share">' . htmlspecialchars($dados["titulo"]) . '</h3>';
                 echo '<div class="social-share-icons">
-                    <a href="https://api.whatsapp.com/send?text=' . urlencode($dados['titulo'] . " ". $url_compartilhamento) .  '" target="_blank" title="Compartilhe no WhatsApp">
+                    <a href="https://api.whatsapp.com/send?text=' . urlencode("Veja esse post que encontrei: " . $dados['titulo'] . " ". $url_compartilhamento) .  '" target="_blank" title="Compartilhe no WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode($url_compartilhamento) . '" target="_blank" title="Compartilhe no Facebook">
