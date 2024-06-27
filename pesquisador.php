@@ -5,7 +5,7 @@ if (!empty($_GET['search'])) {
     $data = $_GET['search'];
     $sql = "SELECT * FROM post WHERE titulo LIKE '%$data%' OR autor LIKE '%$data%' OR tags LIKE '%$data%'";
 } else {
-    $sql = "SELECT * FROM post";
+    $sql = "SELECT * FROM post ORDER BY id DESC";
     $data = '';
 }
 
