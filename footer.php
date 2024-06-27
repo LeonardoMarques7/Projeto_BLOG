@@ -8,7 +8,7 @@
                     />
                 </figure>
                 <small class="text-copy-footer">
-                    &copy;Nexus Community | 2024
+                    <a href="criadores.php" title="Clique aqui">Desenvolvido por &copy;Nexus Community | 2024</a>
                 </small>
                 <div class="redes-sociais-footer">
                     <ul class="row-footer">

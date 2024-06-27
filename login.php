@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog FP | Login</title>
     <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
+    <!-- Verificação -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Estilização -->
     <link id="style-link" rel="stylesheet" href="./css/style.css">
     <!-- Fontes -->
@@ -91,6 +93,8 @@
                     </div>
                     <b class="title-cria">Não tem uma conta? </b><a href="criandoConta.php" class="link-login">Clique aqui</a>
                     <div class="br"></div>
+                    <br>
+                    <div class="g-recaptcha" data-sitekey="6LfaXwAqAAAAAKygUYRk_k_DBXMSCmUti6b2RnXb"></div>
                     <br>
                     <div class="d-grid col-md-9">
                         <button class="btn btn-entrar" type="submit" title="Entrar">Entrar</button>

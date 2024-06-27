@@ -75,46 +75,66 @@
 				$instagram = $_POST['instagram'];	
 				$twitter = $_POST['twitter'];	
 				$facebook = $_POST['facebook'];	
-				$foto = $_FILES['arquivo']['name']; // nome do arquivo
-				$foto_tmp = $_FILES['arquivo']['tmp_name']; // nome temporário do arquivo
+				$foto = $_FILES['arquivo']['name'];
+				$foto_tmp = $_FILES['arquivo']['tmp_name'];
 
-				// movendo o arquivo temporário para o destino desejado
 				move_uploaded_file($foto_tmp, "img/" . $foto);
-
-                function criptografia($senha)
-                {
-                    $custo = "08";
-                    $salt = "Cf1f11ePArKlBJomM0F6aJ";
                 function criptografia($senha)
                 {
                     $custo = "08";
                     $salt = "Cf1f11ePArKlBJomM0F6aJ";
                 
                     // Gera um hash baseado em bcrypt
-                    $hash = crypt($senha, "$2a$" . $custo . "$" . $salt . "$");
+                    $hash = crypt($senha, SALT);
                 
                     return $hash;
                 }
 
                 $senha = criptografia($_POST['senha']);
 
-				if (!empty($foto)) {
-                    // criando a linha de INSERT
-                    $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
-                }
-                else {
-                    $foto = 'Semfoto.png';
-                    $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
-                }
+                $recaptchaResponse = $_POST['g-recaptcha-response'];
 
-				// executando instrução SQL
-				$resultado = @mysqli_query($conexao, $sqlinsert);
-				if (!$resultado) {
-					echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
-					die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
-				} else {
-                    include("carregando.php");
-				} 
+                $secret = RECAPTCHA_SECRET;
+                $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+                $recaptchaData = [
+                    'secret' => $secret,
+                    'response' => $recaptchaResponse,
+                    'remoteip' => $_SERVER['REMOTE_ADDR']
+                ];
+
+                $options = [
+                    'http' => [
+                        'method' => 'POST',
+                        'header' => 'Content-type: application/x-www-form-urlencoded',
+                        'content' => http_build_query($recaptchaData)
+                    ]
+                ];
+
+                $context = stream_context_create($options);
+                $response = file_get_contents($recaptchaUrl, false, $context);
+                $responseKeys = json_decode($response, true);
+
+                if ($responseKeys['success']) {
+                    if (!empty($foto)) {
+                        $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
+                    }
+                    else {
+                        $foto = 'Semfoto.png';
+                        $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
+                    }
+                    // executando instrução SQL
+                    $resultado = @mysqli_query($conexao, $sqlinsert);
+                    if (!$resultado) {
+                        echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
+                        die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
+                    } else {
+                        include("carregando.php");
+                    } 
+                } else {
+                    $_SESSION['messageErrorLogin'] = 'Falha na validação do reCAPTCHA. Tente novamente.';
+                    header("Location: criandoConta.php");
+                    exit();
+                }
 				mysqli_close($conexao);
 			?>
         </main>
@@ -133,7 +153,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>

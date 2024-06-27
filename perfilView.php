@@ -142,12 +142,13 @@
                                 }
 
                                 $codigo = $dados['codigo'];
+                                $codigo_base = base64_encode($codigo);
 
                                 echo '<article class="post post-user">';
                                 echo "<img src='posts/$fotoPost ' alt='Foto do Post'>";
-                                echo "<h3 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
-                                echo '<p class="author-post-user">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                                echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
+                                echo "<h4 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $dados['titulo'] . "</a></h4>";
+                                echo '<p class="date-post-user">' . $data_formatada . '</p>';
+                                echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!' class='btn btn-vermais'>Ler mais</a>";
                                 echo '</article>';
                             }
                         }

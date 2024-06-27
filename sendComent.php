@@ -67,8 +67,9 @@
             <?php
 				include('conexao.php');
 
-                if (isset($_POST['codigo'])) {
+                if (isset($_GET['codigo'])) {
                     $codigo = $_GET['codigo'];
+                    $codigo_base = base64_decode($codigo);
                 } else {
                     header('Location: dashbord.php');
                 }
@@ -83,7 +84,7 @@
                 $id_user = $_SESSION['id'];
 
 
-                $sqlupdate = "INSERT INTO comentarios (codigo_post, conteudo_comentario, image_comentario, id_user, nome_user, login_user) VALUES ('$codigo', '$comentario', '$foto', '$id_user', '$nome', '$login');";
+                $sqlupdate = "INSERT INTO comentarios (codigo_post, conteudo_comentario, image_comentario, id_user, nome_user, login_user) VALUES ('$codigo_base', '$comentario', '$foto', '$id_user', '$nome', '$login');";
 
 				// executando instrução SQL
 				$resultado = @mysqli_query($conexao, $sqlupdate);
@@ -111,7 +112,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>

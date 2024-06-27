@@ -80,9 +80,10 @@
             }
 
             $codigo = $_GET['codigo'];
+            $codigo_base = base64_decode($codigo);
 
             // criando a linha do  SELECT
-            $sqlconsulta =  "select * from post where codigo = $codigo";
+            $sqlconsulta =  "select * from post where codigo = " . $codigo_base .";";
 
             // executando instrução SQL
             $resultado = @mysqli_query($conexao, $sqlconsulta);
@@ -125,34 +126,76 @@
                 </div><br>
                 <div class="col text-start">
                     <script src="https://cdn.tiny.cloud/1/m603wx49uqdb6gnhe5qjqjqkb6ozgucd5p1bginqh8359f9v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
                     <script>
-                    tinymce.init({
-                        selector: 'textarea',   
-                        plugins: 'paste link',
-                        toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat',
-                        menubar: false,
-                        statusbar: false,
-                        tinycomments_mode: 'embedded',
-                        tinycomments_author: 'Author name',
-                        mergetags_list: [
-                        { value: 'First.Name', title: 'First Name' },
-                        { value: 'Email', title: 'Email' },
-                        ],
-                        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-                        content_style: 'body { background-color: #f0f0f0; }',
-                        setup: function (editor) {
-                            editor.on('init', function () {
-                                // Remova o tamanho da textarea
-                                editor.getContainer().style.height = '300px';
-                                editor.getContainer().style.width = 'auto';
-                                editor.getContainer().style.maxWidth = '490px';
+                        const styleToggle = document.getElementById("style-toggle");
+                        const styleLink = document.getElementById("style-link");
+                        const toggleImage = document.getElementById("img");
+
+                        document.addEventListener("DOMContentLoaded", () => {
+                            // Verifique se já há uma escolha armazenada no Local Storage
+                            const storedStyle = localStorage.getItem("selectedStyle");
+                            if (storedStyle === "dark") {
+                                updateTinyMCEStyle(true); // Atualiza o estilo do TinyMCE para o modo escuro
+                                styleToggle.checked = true;
+                                styleLink.href = "./css/style-escuro.css";
+                                toggleImage.src = toggleImage.getAttribute("data-dark-image");N  
+                            } else {
+                                updateTinyMCEStyle(false);
+                            }
+
+                            document.body.style.display = "block";
+                        });
+
+                        styleToggle.addEventListener("change", () => {
+                            if (styleToggle.checked) {
+                                styleLink.href = "./css/style-escuro.css";
+                                toggleImage.src = toggleImage.getAttribute("data-dark-image");
+                                localStorage.setItem("selectedStyle", "dark"); // Armazene a escolha no Local Storage
+                                updateTinyMCEStyle(true); // Atualiza o estilo do TinyMCE para o modo escuro
+                            } else {
+                                styleLink.href = "./css/style.css";
+                                toggleImage.src = "./img/modo-escuro.png"; // Imagem do modo claro
+                                localStorage.removeItem("selectedStyle"); // Remova a escolha do Local Storage
+                                updateTinyMCEStyle(false); // Atualiza o estilo do TinyMCE para o modo claro
+                            }
+                        });
+
+                        function updateTinyMCEStyle(isDarkMode) {
+                            tinymce.remove(); // Remove qualquer instância anterior do TinyMCE
+
+                            tinymce.init({
+                                selector: 'textarea',
+                                plugins: 'paste link',
+                                toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat ',
+                                menubar: false,
+                                statusbar: false,
+                                language: 'pt_BR',
+                                tinycomments_mode: 'embedded',
+                                tinycomments_author: 'Author name',
+                                mergetags_list: [
+                                    { value: 'First.Name', title: 'First Name' },
+                                    { value: 'Email', title: 'Email' },
+                                ],
+                                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                                content_style: isDarkMode ? 'body { background-color: #242424; color: #eee; }' : 'body { background-color: #f0f0f0; }',
+                                setup: function (editor) {
+                                    editor.on('init', function () {
+                                        // Remova o tamanho da textarea
+                                        editor.getContainer().style.height = '300px';
+                                        editor.getContainer().style.width = 'auto';
+                                        editor.getContainer().style.maxWidth = '500px';
+                                        editor.getContainer().style.marginRight = '20px';
+                                        editor.getContainer().style.marginTop = '5px';
+                                    });
+                                },
+                                forced_root_block_attrs: {
+                                    'class': 'description'
+                                }
                             });
                         }
-                    });
                     </script>
                     <b>Assunto Introdutório do Post:</b><br>
-                    <textarea name="assuntoCompleto" class="textareaAssunto" value='<?php echo $dados['assuntoIntro']; ?>'><?php echo $dados['assuntoIntro']; ?>
+                    <textarea name="assuntoIntro" class="textareaAssunto" value='<?php echo $dados['assuntoIntro']; ?>'><?php echo $dados['assuntoIntro']; ?>
                     </textarea>
                 </div><br>
                 <div class="col text-start">
@@ -198,7 +241,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
@@ -217,7 +259,6 @@
         <?php include("footer.php"); ?>
     </footer>
 
-    <script src="./js/script.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>

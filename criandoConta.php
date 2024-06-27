@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog FP | Home</title>
     <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
+    <!-- Verificação -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Estilização -->
     <link id="style-link" rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/style.alert.css">
@@ -100,6 +102,12 @@
         color: #fff;
         /* Light text color for dropdown options */
     }
+
+    @media (max-width: 600px) {
+        .form-cria-login {
+            max-width: 300px;
+        }
+    }
 </style>
 
 <body>
@@ -109,6 +117,11 @@
         <main id="posts-container">
             <?php
             include("conexao.php");
+            ?>
+            <?php if(!empty($_SESSION['messageErrorLogin'])){
+                echo "<span class='message-captcha'>Falha na validação do reCAPTCHA. Tente novamente.<br></span>";
+                clear_message();
+            }
             ?>
             <form class="form-cria-login" action="criarConta.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
@@ -166,6 +179,7 @@
                     or
                     <input type="file" name="arquivo" id="images" accept="image/*">
                 </label>
+                <div class="g-recaptcha" data-sitekey="6LfaXwAqAAAAAKygUYRk_k_DBXMSCmUti6b2RnXb"></div>
                 <button type="submit" class="btn-cria-login">Criar conta</button>
             </form>
         </main>
@@ -177,10 +191,7 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
-                        <li>
-                            <a href="./suporte.php">Suporte</a>
-                        </li>
+                        <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
             </section>
@@ -196,20 +207,15 @@
     </div>
     <footer>
         <?php include("footer.php"); ?>
-        <!-- Include Select2 CSS -->
-        <!-- Include Select2 CSS -->
 
-        <!-- Include jQuery (required for Select2) -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <!-- Include Select2 JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     </footer>
 
     <script src="./js/script.js" defer></script>
     <script src="./js/awsome/all.min.js"></script>
-    <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>
 
 </html>

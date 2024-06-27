@@ -98,15 +98,15 @@
                 $codigo = $dados['codigo'];
                 $codigo_base = base64_encode($codigo);
 
-                
+            
 
                 echo '<article class="post">';
                 echo "<img src='posts/$foto' alt='Foto do Post'>";
-                echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
-                echo '<div class="description">' . $dados["assuntoIntro"] . '</div>';
+                echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $dados['titulo'] . "</a></h3>";
+                echo '<p class="description">' . $dados["assuntoIntro"] . '</p>';
                 echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
                 echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
+                echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!'>Ler mais</a>";
                 echo '</article>';
             }
             ?>
@@ -126,7 +126,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>

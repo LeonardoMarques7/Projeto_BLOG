@@ -38,6 +38,7 @@
             max-height: 200px;
             width: 100%;
             border-radius: 10px;
+            display: block;
         }
 
     </style>
@@ -47,7 +48,16 @@
             <main id="posts-container">
                 <h1 class="title-curso">Etec Fernando Prestes</h1>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.576057709761!2d-47.47376852534445!3d-23.511774759771008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58aeb7987bac9%3A0xbafed5f1761e6f47!2sEscola%20T%C3%A9cnica%20Estadual%20Fernando%20Prestes!5e0!3m2!1spt-BR!2sbr!4v1703168870089!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map"></iframe>
-                <p class="infos-fp text-color fw-bold">
+                    <script>
+    document.getElementById('map').onload = function() {
+        document.getElementById('map').style.display = 'block';
+    }
+
+    document.getElementById('map').onerror = function() {
+        document.getElementById('map').style.display = 'none';
+    }
+</script>
+                    <p class="infos-fp text-color fw-bold">
                     <i class="fa-solid fa-map-location-dot info"></i>
                     R. Natal, 340 - Jd. Paulistano CEP 18040-810 - Sorocaba/SP
                 </p>
@@ -64,7 +74,7 @@
                 </p>
                 <p class="infos-fp">
                     <i class="fa-solid fa-globe info"></i> Site:
-                    <a href="www.etecfernandoprestes.com.br" class="link"
+                    <a href="https://www.etecfernandoprestes.com.br/" class="link"
                         >www.etecfernandoprestes.com.br</a
                     >
                 </p>
@@ -83,10 +93,9 @@
                         </li>
                         <li class="li-curso">
                             <a
-                                href="https://www.vestibulinhoetec.com.br/unidades-cursos/curso.asp?c=1392"
+                                href="https://www.etecfernandoprestes.com.br/Curso/1/administrao-modular"
                                 class="curso-link"
-                                >Administração [Cadastro Reserva - Vagas
-                                Remanescentes]</a
+                                >Administração - (EaD - On-line)</a
                             >
                             <br /><br /><span
                                 >Período: Tarde \ Período: Noite</span
@@ -115,15 +124,6 @@
                                 >Desenvolvimento de Sistemas</a
                             >
                             <br /><br /><span>Período: Noite - 40 vagas</span>
-                        </li>
-                        <li class="li-curso">
-                            <a
-                                href="https://www.vestibulinhoetec.com.br/unidades-cursos/curso.asp?c=1630"
-                                class="curso-link"
-                                >Desenvolvimento de Sistemas (EaD - On-line)
-                                [Cadastro Reserva - Vagas Remanescentes]</a
-                            >
-                            <br /><br /><span>Período: On-line</span>
                         </li>
                         <li class="li-curso">
                             <a

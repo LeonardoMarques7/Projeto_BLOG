@@ -84,63 +84,84 @@
     </header>
     <div class="container">
         <main id="posts-container">
-            <?php
+        <?php
             session_start(); // Inicia a sessão
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                include 'conexao.php';
-
                 $login = $_POST['login'];
 
                 function criptografia($senha)
                 {
-                    $custo = "08";
-                    $salt = "Cf1f11ePArKlBJomM0F6aJ";
                 
-                    // Gera um hash baseado em bcrypt
-                    $hash = crypt($senha, "$2a$" . $custo . "$" . $salt . "$");
+                    $hash = crypt($senha, SALT);
                 
                     return $hash;
                 }
 
                 $senha = criptografia($_POST['senha']);
+                $recaptchaResponse = $_POST['g-recaptcha-response'];
 
-                if ($conexao) {
-                    $sql = "SELECT * FROM users WHERE login = '$login' AND senha = '$senha'";
-                    $resultado = mysqli_query($conexao, $sql);
+                $secret = RECAPTCHA_SECRET;
+                $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+                $recaptchaData = [
+                    'secret' => $secret,
+                    'response' => $recaptchaResponse,
+                    'remoteip' => $_SERVER['REMOTE_ADDR']
+                ];
 
-                    if (mysqli_num_rows($resultado) > 0) {
-                        $_SESSION['login'] = $login;
+                $options = [
+                    'http' => [
+                        'method' => 'POST',
+                        'header' => 'Content-type: application/x-www-form-urlencoded',
+                        'content' => http_build_query($recaptchaData)
+                    ]
+                ];
 
-                        $row = mysqli_fetch_assoc($resultado);
-                        $_SESSION['foto'] = $row['foto'];
-                        $_SESSION['nome'] = $row['nome'];
-                        $_SESSION['id'] = $row['id'];
-                        $_SESSION['tipoUser'] = $row['tipoUser'];
-                        $_SESSION['profissao'] = $row['profissao'];
-                        $_SESSION['linkInsta'] = $row['instagram'];
-                        $_SESSION['linkTwitter'] = $row['twitter'];
-                        $_SESSION['linkFace'] = $row['facebook'];
+                $context = stream_context_create($options);
+                $response = file_get_contents($recaptchaUrl, false, $context);
+                $responseKeys = json_decode($response, true);
 
-                        $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
+                if ($responseKeys['success']) {
+                    if ($conexao) {
+                        $sql = "SELECT * FROM users WHERE login = '$login' AND senha = '$senha'";
+                        $resultado = mysqli_query($conexao, $sql);
 
-                        include("carregando.php");
+                        if (mysqli_num_rows($resultado) > 0) {
+                            $_SESSION['login'] = $login;
+
+                            $row = mysqli_fetch_assoc($resultado);
+                            $_SESSION['foto'] = $row['foto'];
+                            $_SESSION['nome'] = $row['nome'];
+                            $_SESSION['id'] = $row['id'];
+                            $_SESSION['tipoUser'] = $row['tipoUser'];
+                            $_SESSION['profissao'] = $row['profissao'];
+                            $_SESSION['linkInsta'] = $row['instagram'];
+                            $_SESSION['linkTwitter'] = $row['twitter'];
+                            $_SESSION['linkFace'] = $row['facebook'];
+
+                            $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
+
+                            include("carregando.php");
+                        } else {
+                            $_SESSION['messageErrorLogin'] = "Error";
+                            header("Location: login.php");
+                            exit();
+                        }
+
+                        mysqli_close($conexao);
                     } else {
-                        $_SESSION['messageErrorLogin'] = "Error";
-                        header("Location: login.php");
-                        exit();
+                        echo '<h3 class="card-title text-primary fw-bold">Falha ao conectar ao banco de dados!</h3>';
+                        echo '<center>';
+                        echo '<a href="index.php" class="text-primary border border-primary rounded-2 icon-link text-decoration-none text-center p-2 px-4 btn-clique">Tente Novamente ;)</a>';
+                        echo '</center>';
                     }
-
-                    mysqli_close($conexao);
                 } else {
-                    echo '<h3 class="card-title text-primary fw-bold">Falha ao conectar ao banco de dados!</h3>';
-                    echo '<center>';
-                    echo '<a href="index.php" class="text-primary border border-primary rounded-2 icon-link text-decoration-none text-center p-2 px-4 btn-clique">Tente Novamente ;)</a>';
-                    echo '</center>';
+                    $_SESSION['messageErrorLogin'] = 'Falha na validação do reCAPTCHA. Tente novamente.';
+                    header("Location: login.php");
+                    exit();
                 }
             }
             ?>
-
         </main>
         <aside id="sidebar">
             <section id="search-bar">
@@ -157,7 +178,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>

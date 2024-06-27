@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
+
 <style>
     input[type="checkbox"] {
         appearance: none;
@@ -68,8 +68,6 @@
     <?php
     include("conexao.php");
 
-
-
     function formatadata($date, $formato)
     {
         $dt = new DateTime($date, new DateTimeZone("America/Sao_Paulo"));
@@ -85,6 +83,7 @@
         header("Location: login.php");
         exit;
     }
+    $codigo = rand(10000, 99999);
     ?>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
@@ -95,52 +94,19 @@
                     <b>Imagem do Post:</b><br><input class="form-control border-primary input-file" type="file" name="arquivo" id="arquivo" title="Imagem do Post">
                 </div><br>
                 <div class="col text-start">
-                    <b>Código do Post:</b><br><input class="form-control border-primary" type="number" placeholder="Digite o Código do Post" name="codigo" id="codigo" title="Digite o Código do Post" required>
+                    <b>Código do Post:</b><br><input class="form-control border-primary" type="number" placeholder="Digite o Código do Post" name="codigo" id="codigo" title="Digite o Código do Post" readonly value="<?php echo $codigo?>"> 
                 </div><br>
                 <div class="col text-start">
                     <b>Título do Post:</b><br><input class="form-control border-primary" placeholder="Digite o Título" type="text" name="titulo" id="titulo" maxlength="80" title="Digite o Título" required>
                 </div><br>
-                <style>
-                    .custom-background {
-                        background-color: red; /* Defina a cor de fundo desejada */
-                    }
-                </style>
                 <div class="col text-start" required>
-                  <!-- Place the first <script> tag in your HTML's <head> -->
-                    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+                <script src="https://cdn.tiny.cloud/1/m603wx49uqdb6gnhe5qjqjqkb6ozgucd5p1bginqh8359f9v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
                     <b>Assunto Introdutório do Post:</b><br>
                     <textarea name="assuntoIntro">
                     </textarea>
                 </div><br>
                 <div class="col text-start" required>
-                  <!-- Place the first <script> tag in your HTML's <head> -->
-                    <script src="https://cdn.tiny.cloud/1/m603wx49uqdb6gnhe5qjqjqkb6ozgucd5p1bginqh8359f9v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
-                    <script>
-                    tinymce.init({
-                        selector: 'textarea',   
-                        plugins: 'paste link',
-                        toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat',
-                        menubar: false,
-                        statusbar: false,
-                        tinycomments_mode: 'embedded',
-                        tinycomments_author: 'Author name',
-                        mergetags_list: [
-                        { value: 'First.Name', title: 'First Name' },
-                        { value: 'Email', title: 'Email' },
-                        ],
-                        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-                        content_style: 'body { background-color: #f0f0f0; }',
-                        setup: function (editor) {
-                            editor.on('init', function () {
-                                // Remova o tamanho da textarea
-                                editor.getContainer().style.height = '300px';
-                                editor.getContainer().style.width = 'auto';
-                                editor.getContainer().style.maxWidth = '490px';
-                            });
-                        }
-                    });
-                    </script>
+                    
                     <b>Assunto Completo do Post:</b><br>
                     <textarea name="assuntoCompleto" class="textareaAssunto">
                     </textarea>
@@ -190,9 +156,9 @@
                         });
                     </script>
                 </div><br>
-                <div class="col text-start">
-                    <b>Data de Cadastro do Post:</b><br><input class="form-control text-center border-primary" name="datePost" id="datePost" placeholder="A data será informada só quando enviar!" type="text" title="Digite data do Post" disabled></input>
-                </div><br>
+                <div class="col text-start dataCad">
+                    <input class="form-control text-center border-primary" type="hidden" name="datePost" id="datePost" placeholder="A data será informada só quando enviar!" title="Digite data do Post" disabled></input>
+                </div>
                 <div class="d-grid col-md-9">
                     <button class="btn btn-primary" type="submit" title="Enviar" style="color: 444;"><i class="fa-regular fa-paper-plane"></i> Enviar</button>
                     <button class="btn btn-outline-danger shadow" type="reset" title="Limpar"><i class="fa-solid fa-trash"></i> Limpar</button>
@@ -216,7 +182,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
@@ -234,8 +199,7 @@
     <footer>
         <?php include("footer.php"); ?>
     </footer>
-
-    <script src="./js/script.js"></script>
+    <script src="./js/script-post.js"></script>
     <script src="./js/awsome/all.min.js"></script>
     <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
 </body>

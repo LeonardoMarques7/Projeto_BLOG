@@ -200,13 +200,14 @@
                                 $fotoPost = empty($post['foto']) ? 'Semfoto.png' : $post['foto'];
 
                                 $codigo = $post['codigo'];
+                                $codigo_base = base64_encode($codigo);
 
                                 // Exibir informações do post
                                 echo '<article class="post post-user">';
                                 echo "<img src='posts/$fotoPost' alt='Foto do Post'>";
-                                echo "<h3 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $post['titulo'] . "</a></h3>";
+                                echo "<h3 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $post['titulo'] . "</a></h3>";
                                 echo '<p class="author-post-user"><b>' . $post["autor"] . '</b> | ' . $data_formatada . '</p>';
-                                echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
+                                echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!'>Ler mais</a>";
                                 echo '</article>';
                             }
                         } else {
@@ -236,7 +237,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>

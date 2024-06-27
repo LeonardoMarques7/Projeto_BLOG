@@ -117,7 +117,20 @@
     .d {
         display: flex;
         flex-direction: column;
+        justify-content: start;
     }
+
+    @media (max-width: 800px) {
+        
+
+    .perfil {
+        display: flex;
+        justify-content: start;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    }
+    
 </style>
 
 <body>
@@ -137,7 +150,7 @@
 
                             </div>
 
-                            <div class="text">
+                            <div class="">
                                 <h2><input type="text" class="input-edit-name" name="nome" value="<?php echo $_SESSION['nome'] ?>"></h2>
                                 <b><input type="text" class="input-edit-profissao" name="profissao" value="<?php echo $_SESSION['profissao'] ?>"></b>
                                 <input type="hidden" class="input-edit-profissao" name="login" value="<?php echo $_SESSION['login'] ?>">
@@ -169,47 +182,6 @@
                 <?php
                 include("conexao.php");
                 include("pesquisador.php");
-
-
-                $foto = $_SESSION['foto'];
-                $login = $_SESSION['nome'];
-
-                // Consulta SQL corrigida (substitua 'sua_coluna' pelo nome real da coluna)
-                $sqlconsulta = "SELECT * FROM post WHERE autor = '$login'";
-
-                // Executando instrução SQL de forma segura com prepared statement
-                $resultado = mysqli_query($conexao, $sqlconsulta);
-                if (!$resultado) {
-                    die('<b>Query Inválida:</b>' . mysqli_error($conexao));
-                } else {
-                    $num = mysqli_num_rows($resultado);
-
-                    if ($num == 0) {
-                        echo '<div class="alert-message"><b class="alert-user">Esse usuário ainda não fez nenhum post...</b></div>';
-                    } else {
-                        while ($dados = mysqli_fetch_array($resultado)) {
-                            $timestamp = strtotime($dados['datePost']);
-                            $data_formatada = date('d/m/Y H:i', $timestamp);
-
-                            if (empty($dados['foto'])) {
-                                $fotoPost = 'Semfoto.png';
-                            } else {
-                                $fotoPost = $dados['foto'];
-                            }
-
-                            $codigo = $dados['codigo'];
-
-                            echo '<article class="post post-user">';
-                            echo "<img src='posts/$fotoPost ' alt='Foto do Post'>";
-                            echo "<h3 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo'>" . $dados['titulo'] . "</a></h3>";
-                            echo '<p class="author-post-user">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                            echo "<a href='viewPost.php?codigo=$codigo' title='Clique e veja mais!'>Ler mais</a>";
-                            echo '</article>';
-                        }
-                    }
-                }
-
-                mysqli_close($conexao);
                 ?>
             </div>
         </main>

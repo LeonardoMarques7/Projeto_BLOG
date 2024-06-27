@@ -87,20 +87,13 @@
     <div class="container">
         <main id="posts-container">
             <?php
-            include('conexao.php');
-
-            if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
-                // Se não estiver logado, redirecione para a página de login
-                $_SESSION['message'] = "Você precisa ser administrador!";
-                header("Location: login.php");
-                exit;
-            }
+            include('conexao.php'); 
 
             // Recuperando o código
             $codigo = $_POST['codigo'];
 
             // Consulta para obter o nome do arquivo de foto associado a este post
-            $sql_select_foto = "SELECT foto FROM post WHERE codigo = '$codigo'";
+            $sql_select_foto = "SELECT foto FROM post WHERE codigo = $codigo";
             $resultado_select_foto = mysqli_query($conexao, $sql_select_foto);
 
             if (!$resultado_select_foto) {
@@ -112,14 +105,16 @@
 
                 // Excluir a foto associada
                 $caminho_foto = "./posts/" . $nome_foto; // Substitua pelo caminho real da sua pasta e arquivo
-                if (file_exists($caminho_foto) && is_file($caminho_foto)) {
-                    unlink($caminho_foto); // Isso exclui o arquivo de foto do servidor
-                } else {
-                    echo "A foto não foi encontrada ou é um diretório.";
+                if($nome_foto !== "semfoto.png") {
+                    if (file_exists($caminho_foto) && is_file($caminho_foto)) {
+                        unlink($caminho_foto); 
+                    } else {
+                        echo "A foto não foi encontrada ou é um diretório.";
+                    }
                 }
 
                 // Criar a consulta DELETE
-                $sqldelete = "DELETE FROM post WHERE codigo = '$codigo'";
+                $sqldelete = "DELETE FROM post WHERE codigo = $codigo";
 
                 // Executar a consulta DELETE
                 $resultado = mysqli_query($conexao, $sqldelete);
@@ -151,7 +146,6 @@
                         <li><a href="https://www.etecfernandoprestes.com.br/" title="Site Etec Fernando Prestes">Etec Fernando Prestes</a></li>
                         <li><a href="https://www.vestibulinhoetec.com.br/home/" title="Site Vestibulinho">Vestibulinho</a></li>
                         <li><a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a></li>
-                        <li><a href="./criadores.php" title="Veja os Criadores!">Criadores</a></li>
                         <li><a href="./suporte.php">Suporte</a></li>
                     </ul>
                 </nav>
