@@ -62,7 +62,7 @@
 </style>
 
 <body>
-    <?php include('./inc/header.php'); include("conexao.php"); ?>
+    <?php include('./inc/header.php'); include("conexao.php");?>
     <style>
         .invisible {
             display: none;

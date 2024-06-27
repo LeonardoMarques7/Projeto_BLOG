@@ -136,6 +136,7 @@ input[type="file"]:hover {
     font-weight: bold;
     color: #a7a7a7;
     font-size: 12px;
+    margin-bottom: 1rem;
 }
 
 
@@ -2212,7 +2213,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .img-post-mais {
-    max-height: 150px;
+    max-height: 250px;
     width: 100%;
     object-fit: cover;
 }
