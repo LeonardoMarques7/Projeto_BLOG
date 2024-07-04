@@ -113,10 +113,3 @@ if (!window.location.search.includes("search=")) {
 function likePost(button) {
     button.classList.toggle("liked");
 }
-
-$(document).ready(function () {
-    $(".profession-select").select2({
-        theme: "classic", // Use the 'classic' theme
-        dropdownCssClass: "dark-theme-dropdown", // Add a custom class for dark theme styling
-    });
-});

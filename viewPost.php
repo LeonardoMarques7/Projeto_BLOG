@@ -1,93 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog FP | Post</title>
-    <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
-    <!-- Estilização -->
-    <link id="style-link" rel="stylesheet" href="./css/style.css">
-    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<style>
-    input[type="checkbox"] {
-        appearance: none;
-    }
-
-    label,
-    input[type="checkbox"]:hover {
-        cursor: pointer;
-    }
-
-    #nav-links .img-modo {
-        width: 18px;
-        margin-top: 2px;
-    }
-
-    a b {
-        font-weight: bold;
-        font-size: 12px;
-        border: 1px solid #e50000;
-        padding: 2px;
-        border-radius: 2px;
-        background-color: #e50000;
-        color: #fff;
-        transition: 0.4s;
-    }
-
-    .link-turne:hover b,
-    .link-turne a:hover {
-        color: #fff;
-    }
-
-    a:hover b {
-        border: 1px solid #a70000;
-        background-color: #a70000;
-    }
-
-    #foto-user {
-        width: 24pt;
-        margin-right: 5px;
-    }
-
-    h2 b {
-        font-weight: normal;
-        color: #000;
-    }
-</style>
-
-<body>
-    <?php include('./inc/header.php'); include("conexao.php");?>
-    <style>
-        .invisible {
-            display: none;
-        }
-
-        .form-area {
-            width: 100%;
-            background-color: #ffffff2f;
-            font-weight: bold;
-            color: #1b1b1b;
-        }
-
-        .form-comentario {
-            font-weight: bold;
-            color: #1b1b1b;
-        }
-
-        .author {
-            margin-bottom: .5rem;
-        }
-
-        .like {
-            color: #39ff;
-        }
-    </style>
+    
+    <?php $title = "Postagem"?>
+    <?php include("inc/head.php")?>
+    <?php include(DBAPI); ?>
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
@@ -364,13 +279,6 @@
             </section>
         </aside>
     </div>
-    <footer>
-        <?php include("footer.php"); ?>
-    </footer>
+    
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667b5a96bcdd3d0019d7e65b&product=inline-share-buttons&source=platform" async="async" defer></script>
-    <script src="./js/script.js"></script>
-    <script src="./js/awsome/all.min.js"></script>
-    <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
-</body>
-
-</html>
+    <?php include(ABSPATH . "inc/foot.php")?>
