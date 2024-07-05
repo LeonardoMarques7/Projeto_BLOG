@@ -13,22 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
 </head>
-<style>
-    input[type="checkbox"] {
-        appearance: none;
-    }
-
-    label,
-    input[type="checkbox"]:hover {
-        cursor: pointer;
-    }
-
-    #nav-links .img-modo {
-        width: 18px;
-        margin-top: 2px;
-    }
-</style>
-
 <body>
     <?php include("inc/header.php") ?>
     <div class="container">

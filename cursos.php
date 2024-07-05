@@ -19,29 +19,6 @@
             rel="stylesheet"
         />
     </head>
-    <style>
-        input[type="checkbox"] {
-            appearance: none;
-        }
-
-        label,
-        input[type="checkbox"]:hover {
-            cursor: pointer;
-        }
-
-        #nav-links .img-modo {
-            width: 18px;
-            margin-top: 2px;
-        }
-
-        #map {
-            max-height: 200px;
-            width: 100%;
-            border-radius: 10px;
-            display: block;
-        }
-
-    </style>
     <body>
         <?php include("inc/header.php")?>
         <div class="container">

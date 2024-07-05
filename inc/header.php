@@ -1,23 +1,6 @@
 <header id="home">
     <nav id="navbar">
         <div id="navbar-inner">
-            <style>
-                .active a {
-                    border: 1px solid #39f;
-                    background-color: #39f;
-                    color: #fff;
-                    padding: 5px 10px;
-                    border-radius: 5px;
-                }
-
-                .perfil-header {
-                    width: 30px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    padding: 2px;
-                    border: 2px solid #707070;
-                }
-            </style>
             <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
             <ul id="nav-links">
                 <li><a href="./index.php">Home</a></li>

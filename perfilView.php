@@ -19,62 +19,6 @@
             rel="stylesheet"
         />
     </head>
-    <style>
-        input[type="checkbox"] {
-            appearance: none;
-        }
-
-        label,
-        input[type="checkbox"]:hover {
-            cursor: pointer;
-        }
-
-        #nav-links .img-modo {
-            width: 18px;
-            margin-top: 2px;
-        }
-
-        .post img{
-            border-radius: 5px !important;
-            margin-bottom: 0px;
-        }
-
-        .image-user {
-            border-radius: 5px !important;
-        }
-
-        .post-user {
-            width: 50%;
-        }
-
-        .container-post-user {
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-        }
-
-        @media (max-width: 900px) {
-            .container-post-user {
-                flex-wrap: wrap;
-
-            }
-            
-            .post-user {
-                width: 100%;
-            }
-        }
-
-        .author-post-user {
-            font-weight: bold;
-            font-size: .9rem;
-            opacity: .6;
-        }
-
-        .alert-message {
-            margin-top: 10px;
-        }
-    </style>
     <body>
         <?php include("inc/header.php") ?>
         <div class="container">

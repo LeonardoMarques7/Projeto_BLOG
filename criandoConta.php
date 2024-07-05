@@ -17,94 +17,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
-<style>
-    input[type="checkbox"] {
-        appearance: none;
-    }
 
-    label,
-    input[type="checkbox"]:hover {
-        cursor: pointer;
-    }
 
-    #nav-links .img-modo {
-        width: 18px;
-        margin-top: 2px;
-    }
-
-    
-    a b {
-        font-weight: bold;
-        font-size: 12px;
-        border: 1px solid #39f;
-        padding: 2px;
-        border-radius: 2px;
-        background-color: #39f;
-        color: #fff;
-        transition: 0.4s;
-    }
-
-    .link-turne:hover b,
-    .link-turne a:hover {
-        color: #fff;
-    }
-
-    a:hover b {
-        border: 1px solid #39f;
-        background-color: #39f;
-    }
-
-    #foto-user {
-        width: 24pt;
-        margin-right: 5px;
-    }
-
-    h2 b {
-        font-weight: normal;
-        color: #000;
-    }
-
-    .hide {
-        display: none;
-    }
-
-    /* Dark theme styles */
-    .dark-theme-dropdown .select2-container--open .select2-dropdown {
-        background-color: #333;
-        /* Dark background color */
-        color: #fff;
-        /* Light text color */
-    }
-
-    .dark-theme-dropdown .select2-selection--single,
-    .dark-theme-dropdown .select2-selection--single .select2-selection__rendered,
-    .dark-theme-dropdown .select2-selection--single .select2-selection__arrow {
-        background-color: #555;
-        /* Darker background color for selection area and arrow */
-        color: #fff;
-        /* Light text color for selection area and arrow */
-    }
-
-    .dark-theme-dropdown .select2-search__field {
-        border: 1px solid #555;
-        /* Dark border color for the search box */
-        border-radius: 4px;
-        color: #fff;
-        /* Light text color for the search box */
-    }
-
-    .dark-theme-dropdown .select2-results__option {
-        background-color: #333;
-        /* Dark background color for dropdown options */
-        color: #fff;
-        /* Light text color for dropdown options */
-    }
-
-    @media (max-width: 600px) {
-        .form-cria-login {
-            max-width: 300px;
-        }
-    }
+   
 </style>
 
 <body>
