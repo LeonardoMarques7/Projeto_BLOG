@@ -280,4 +280,4 @@
     </div>
     
     <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=667b5a96bcdd3d0019d7e65b&product=inline-share-buttons&source=platform" async="async" defer></script>
-    <?php include(ABSPATH . "inc/foot.php")?>
+    <?php include(FOOTER_TEMPLATE)?>

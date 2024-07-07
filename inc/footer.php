@@ -36,5 +36,3 @@
                 </div>
             </div>
         </div>
-
-        <?php include('functions.php')?>

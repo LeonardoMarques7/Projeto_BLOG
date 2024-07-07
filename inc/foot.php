@@ -1,5 +1,5 @@
     <footer>
-        <?php include(ABSPATH  . "inc/footer.php"); ?>
+        <?php include("./footer.php"); ?>
     </footer>
     <script src="<?php echo BASEURL ?>js/script.js"></script>
     <script src="<?php echo BASEURL ?>js/awsome/all.min.js"></script>

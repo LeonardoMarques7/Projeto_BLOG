@@ -20,4 +20,4 @@
 </head>
 
 <body>
-    <?php include(ABSPATH . "inc/header.php") ?>
+    <?php include(HEADER_TEMPLATE) ?>

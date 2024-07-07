@@ -86,4 +86,4 @@
             </section>
         </aside>
     </div>
-    <?php include(ABSPATH . "inc/foot.php")?>
+    <?php include(FOOTER_TEMPLATE); ?>
