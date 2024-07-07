@@ -1,8 +1,7 @@
 <?php
-session_start(); // Inicia a sessão
 
 // Inclui o arquivo de conexão
-include 'conexao.php';
+include 'inc/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codigo']) && isset($_POST['userId']) && isset($_POST['action'])) {
     $codigo = $_POST['codigo'];
