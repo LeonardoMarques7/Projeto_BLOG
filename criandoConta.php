@@ -1,34 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog FP | Home</title>
-    <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
-    <!-- Verificação -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <!-- Estilização -->
-    <link id="style-link" rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/style.alert.css">
-    <!-- Fontes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-</head>
-
-
-   
-</style>
-
-<body>
-    <?php include("inc/header.php") ?>
+    <?php $title = "Criando a Conta"?>
+    <?php include("inc/head.php")?>
+    <?php include(DBAPI); ?>
 
     <div class="container">
         <main id="posts-container">
             <?php
-            include("conexao.php");
             ?>
             <?php if(!empty($_SESSION['messageErrorLogin'])){
                 echo "<span class='message-captcha'>Falha na validação do reCAPTCHA. Tente novamente.<br></span>";
@@ -117,17 +93,7 @@
             </section>
         </aside>
     </div>
-    <footer>
-        <?php include("footer.php"); ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
-    </footer>
-
-    <script src="./js/script.js" defer></script>
-    <script src="./js/awsome/all.min.js"></script>
-</body>
-
-</html>
+    <?php include(ABSPATH . "inc/foot.php")?>

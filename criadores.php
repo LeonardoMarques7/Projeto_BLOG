@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog | Criadores</title>
-    <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg" />
-    <!-- Estilização -->
-    <link id="style-link" rel="stylesheet" href="./css/style.css" />
-    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
-</head>
+<?php $title = "Criadores"?>
+<?php include("inc/head.php")?>
+<?php include(DBAPI); ?>
 <body>
-    <?php include("inc/header.php") ?>
     <div class="container">
         <main id="posts-container">
         <div class="container-criadores">
@@ -132,9 +120,6 @@
                             <a href="cursos.php" title="Cursos da Etec Fernando Prestes">Cursos</a>
                         </li>
                         <li>
-                            <a href="./criadores.php" title="Veja os Criadores!" class="active">Criadores</a>
-                        </li>
-                        <li>
                             <a href="./suporte.php">Suporte</a>
                         </li>
                     </ul>
@@ -150,13 +135,4 @@
             </section>
         </aside>
     </div>
-    <footer>
-        <?php include("footer.php"); ?>
-    </footer>
-
-    <script src="./js/awsome/all.min.js"></script>
-    <script src="./js/script.js"></script>
-    <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
-</body>
-
-</html>
+    <?php include(ABSPATH . "inc/foot.php")?>

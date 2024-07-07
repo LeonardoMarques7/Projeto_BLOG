@@ -1,40 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Blog | Cursos</title>
-        <link
-            rel="shortcut icon"
-            href="./img/288-logo-etec-fernando-prestes.svg"
-            type="image/svg"
-        />
-        <!-- Estilização -->
-        <link id="style-link" rel="stylesheet" href="./css/style.css" />
-        <!-- Fontes -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-            rel="stylesheet"
-        />
-    </head>
-    <body>
-        <?php include("inc/header.php")?>
+    <?php $title = "Postagem"?>
+    <?php include("inc/head.php")?>
+    <?php include(DBAPI); ?>
         <div class="container">
             <main id="posts-container">
                 <h1 class="title-curso">Etec Fernando Prestes</h1>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.576057709761!2d-47.47376852534445!3d-23.511774759771008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58aeb7987bac9%3A0xbafed5f1761e6f47!2sEscola%20T%C3%A9cnica%20Estadual%20Fernando%20Prestes!5e0!3m2!1spt-BR!2sbr!4v1703168870089!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map"></iframe>
                     <script>
-    document.getElementById('map').onload = function() {
-        document.getElementById('map').style.display = 'block';
-    }
+                        document.getElementById('map').onload = function() {
+                            document.getElementById('map').style.display = 'block';
+                        }
 
-    document.getElementById('map').onerror = function() {
-        document.getElementById('map').style.display = 'none';
-    }
-</script>
-                    <p class="infos-fp text-color fw-bold">
+                        document.getElementById('map').onerror = function() {
+                            document.getElementById('map').style.display = 'none';
+                        }
+                    </script>
+                <p class="infos-fp text-color fw-bold">
                     <i class="fa-solid fa-map-location-dot info"></i>
                     R. Natal, 340 - Jd. Paulistano CEP 18040-810 - Sorocaba/SP
                 </p>
@@ -229,13 +209,5 @@
                 </section>
             </aside>
         </div>
-        <footer>
-            <?php include("footer.php"); ?>
-        </footer>
-    
-        </body>
-        <script src="./js/awsome/all.min.js"></script>
-        <script src="./js/script.js"></script>
-        <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
-    </body>
-</html>
+        
+    <?php include(ABSPATH . "inc/foot.php")?>

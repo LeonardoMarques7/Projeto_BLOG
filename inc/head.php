@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog FP | <?=$title?></title>
     <link rel="shortcut icon" href="<?=BASEURL?>img/288-logo-etec-fernando-prestes.svg" type="image/svg">
+    <!-- Verificação -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- Estilização -->
     <link id="style-link" rel="stylesheet" href="<?=BASEURL?>css/style.css">
     <link rel="stylesheet" href="<?=BASEURL?>css/style.alert.css">

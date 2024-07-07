@@ -1,17 +1,15 @@
 <header id="home">
     <nav id="navbar">
         <div id="navbar-inner">
-            <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
+            <img src="<?php echo BASEURL ?>img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
             <ul id="nav-links">
-                <li><a href="./index.php">Home</a></li>
+                <li><a href="<?php echo BASEURL ?>index.php">Home</a></li>
                 <?php
-
                 session_start();
-
 
                 // Verifique se o usuário está logado
                 if (!isset($_SESSION['login'])) {
-                    echo '<li><a href="./login.php">Logar</a></li>';
+                    echo '<li><a href="' . BASEURL . 'login.php">Logar</a></li>';
                 } else {
                     if ($_SESSION['tipoUser'] === "admin") {
                         echo '<li><a href="./dashbord.php">Dashboard</a></li>';
@@ -23,7 +21,7 @@
 
                 ?>
                 <li>
-                    <label class="switch">
+                    <label class="switch hide">
                         <input type="checkbox" id="style-toggle">
                         <img src="./img/modo-escuro.png" id="img" alt="Toggle Image" class="img-modo" data-dark-image="./img/modo-claro.png">
                     </label>

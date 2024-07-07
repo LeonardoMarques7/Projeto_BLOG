@@ -1,42 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+    <?php $title = "Postagem"?>
+    <?php include("inc/head.php")?>
+    <?php include(DBAPI); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog FP | Excluindo</title>
-    <link rel="shortcut icon" href="./img/288-logo-etec-fernando-prestes.svg" type="image/svg">
-    <!-- Estilização -->
-    <link id="style-link" rel="stylesheet" href="./css/style.css">
-    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header id="home">
-        <nav id="navbar">
-            <div id="navbar-inner">
-                <img src="./img/288-logo-etec-fernando-prestes.svg" alt="" id="logo-page" style="filter: invert(100%);">
-                <ul id="nav-links">
-                    <li><a href="index.php" class="active">Home</a></li>
-                    <li><a href="./dashbord.php">Administrador</a></li>
-                    <li>
-                        <label class="switch">
-                            <input type="checkbox" id="style-toggle">
-                            <img src="./img/modo-escuro.png" id="img" alt="Toggle Image" class="img-modo" data-dark-image="./img/modo-claro.png">
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-    </header>
+    
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
-            include('conexao.php'); 
 
             // Recuperando o código
             $codigo = $_POST['codigo'];
@@ -109,13 +79,4 @@
             </section>
         </aside>
     </div>
-    <footer>
-        <?php include("footer.php"); ?>
-    </footer>
-
-    <script src="./js/script.js"></script>
-    <script src="./js/awsome/all.min.js"></script>
-    <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
-</body>
-
-</html>
+    <?php include(ABSPATH . "inc/foot.php")?>

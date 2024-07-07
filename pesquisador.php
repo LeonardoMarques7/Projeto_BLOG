@@ -1,5 +1,5 @@
 <?php
-include("conexao.php");
+include(DBAPI);
 
 if (!empty($_GET['search'])) {
     $data = $_GET['search'];

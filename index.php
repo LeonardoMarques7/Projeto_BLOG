@@ -92,4 +92,4 @@
         </section>
     </aside>
 </div>
-<?php include("foot.php"); ?>
+<?php include(ABSPATH . "inc/foot.php"); ?>

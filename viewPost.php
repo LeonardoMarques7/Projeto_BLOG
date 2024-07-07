@@ -1,8 +1,7 @@
-
-    
     <?php $title = "Postagem"?>
     <?php include("inc/head.php")?>
     <?php include(DBAPI); ?>
+
     <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
