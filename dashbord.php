@@ -6,12 +6,13 @@
                     echo '<div class="message">' . $_SESSION['message'] . '</div>';
                     clear_message();
                 }?>
-            <a href="./criaPost.php"><button class="btn-add" style="text-transform: uppercase; font-weight: bold; align-items: center;"><i class="fa-solid fa-square-plus"></i> Adicione um Post</button></a><br><br>
+            <a href="<?= BASEURL ?>postagens/criaPost.php"><button class="btn-add" style="text-transform: uppercase; font-weight: bold; align-items: center;"><i class="fa-solid fa-square-plus"></i> Adicione um Post</button></a><br><br>
             <?php
                 
                 // Verifique se o usuário está logado
                 if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                     // Se não estiver logado, redirecione para a página de login
+                    $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
                     header("Location: index.php");
                     exit;
                 }
@@ -35,15 +36,15 @@
                     $codigo_cripto = base64_encode($codigo);
 
                     echo '<article class="post">';
-                    echo "<img src='posts/$foto' alt='Foto do Post'>";
+                    echo "<img src='" . BASEURL . "postagens/posts/$foto' alt='Foto do Post'>";
                     echo '<div class="post-buttons"><div class="esquerda"><p class="codigo">Código do Post: ' . $dados["codigo"] . '</p></div><div class="espacador"></div>';
-                    echo "<div class='direita-edit'><a href='viewUpdatePost.php?codigo=$codigo_cripto' title='Editar'><i class='fa-regular fa-pen-to-square'></i></a></div>";
-                    echo "<div class='direita'><a href='viewDeletePost.php?codigo=$codigo_cripto' title='Apagar'><i class='fa-solid fa-trash-can'></i></a></div></div>";
-                    echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_cripto'>" . $dados['titulo'] . "</a></h3>";
+                    echo "<div class='direita-edit'><a href='" . BASEURL ."postagens/viewUpdatePost.php?codigo=$codigo_cripto' title='Editar'><i class='fa-regular fa-pen-to-square'></i></a></div>";
+                    echo "<div class='direita'><a href='" . BASEURL ."postagens/viewDeletePost.php?codigo=$codigo_cripto' title='Apagar'><i class='fa-solid fa-trash-can'></i></a></div></div>";
+                    echo "<h3 class='title' title='Clique e veja mais!'><a href='postagens/index.php?codigo=$codigo_cripto'>" . $dados['titulo'] . "</a></h3>";
                     echo '<p class="description">' . $dados["assuntoIntro"] . '</p>';
                     echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
                     echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-                    echo "<a href='viewPost.php?codigo=$codigo_cripto' title='Clique e veja mais!'>Ler mais</a>";
+                    echo "<a href='" . BASEURL ."postagens/index.php?codigo=$codigo_cripto' title='Clique e veja mais!'>Ler mais</a>";
                     echo '</article>';
                 }
                 mysqli_close($conexao);

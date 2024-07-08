@@ -1,48 +1,44 @@
-    <?php $title = "Enviando comentário"?>
-    <?php include("inc/head.php")?>
+<?php $title = "Deletando o Perfil"?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
-<body>
+    <link rel="stylesheet" href="<?php echo BASEURL ?>css/style-post.css">
     <div class="container">
         <main id="posts-container">
             <?php
 
-                if (isset($_GET['codigo'])) {
-                    $codigo = $_GET['codigo'];
-                    $codigo_base = base64_decode($codigo);
-                } else {
-                    header('Location: dashbord.php');
+                if (!isset($_SESSION['login'])) {
+                    // Se não estiver logado, redirecione para a página de login
+                    header("Location: login.php");
+                    exit;
                 }
-				// recuperando 
-				$comentario = $_POST['comentario'];	
 
-                $foto = $_SESSION['foto'];
+                // Recuperando o código
+                $id = $_GET['id'];
 
-                $nome = $_SESSION['nome'];
-                $login = $_SESSION['login'];
+                // Criar a consulta DELETE
+                $sqldelete = "DELETE FROM users WHERE id = '$id'";
 
-                $id_user = $_SESSION['id'];
+                // Executar a consulta DELETE
+                $resultado = mysqli_query($conexao, $sqldelete);
 
+                if (!$resultado) {
+                    echo '<a href="index.php" class="btn btn-primary w-100">Voltar</a>';
+                    die('<b>Query Inválida:</b>' . mysqli_error($conexao));
+                } else {
+                    header("Location: " . BASEURL . "conta/logout.php");
+                }
 
-                $sqlupdate = "INSERT INTO comentarios (codigo_post, conteudo_comentario, image_comentario, id_user, nome_user, login_user) VALUES ('$codigo_base', '$comentario', '$foto', '$id_user', '$nome', '$login');";
+                mysqli_close($conexao);
+            ?>
 
-				// executando instrução SQL
-				$resultado = @mysqli_query($conexao, $sqlupdate);
-				if (!$resultado) {
-					echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
-					die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
-				} else {
-                    include("carregando.php");
-				} 
-				mysqli_close($conexao);
-			?>
         </main>
         <aside id="sidebar">
             <section id="search-bar">
-                <a href="https://websai.cps.sp.gov.br/acesso/Login?ReturnUrl=%2FFormulario%2FLista">
-                    <figure>
-                        <img src="./img/websai.png" alt="WebSai" title="CPS pesquisa do WEBSAI 2023" class="img-websai">
-                    </figure>
-                </a>
+                <h4>Busca</h4>
+                <div id="form">
+                    <input type="search" placeholder="Pesquise no blog" id="pesquisar">
+                    <button type="button" class="btn-busca" onclick="searchData()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
             </section>
             <section id="categories">
                 <h4>Links Úteis</h4>

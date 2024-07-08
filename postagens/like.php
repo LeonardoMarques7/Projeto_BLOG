@@ -1,5 +1,7 @@
-<?php
-include('conexao.php');
+<?php 
+    include("../inc/database.php");
+
+    session_start();
 
 $userId = $_GET['id_user'];
 $postId = $_GET['id_post'];

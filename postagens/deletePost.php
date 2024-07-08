@@ -1,44 +1,52 @@
     <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
-    <link rel="stylesheet" href="./css/style-post.css">
+
+    
+    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
 
-            $login = $_POST['login'];
+            // Recuperando o código
+            $codigo = $_POST['codigo'];
 
-            $nome = $_POST['nome'];
-            $profissao = $_POST['profissao'];
-            $instagram = $_POST['instagram'];
-            $twitter = $_POST['twitter'];
-            $facebook = $_POST['facebook'];
-            $foto = $_FILES['arquivo']['name'];
-            $foto_tmp = $_FILES['arquivo']['tmp_name'];
+            // Consulta para obter o nome do arquivo de foto associado a este post
+            $sql_select_foto = "SELECT foto FROM post WHERE codigo = $codigo";
+            $resultado_select_foto = mysqli_query($conexao, $sql_select_foto);
 
-            // Verificar se um novo arquivo foi enviado
-            if (!empty($foto)) {
-                // Processar o upload do novo arquivo e mover para o destino desejado
-                move_uploaded_file($foto_tmp, "img/" . $foto);
-
-                // Atualizar o campo "imagem" na consulta SQL apenas se um novo arquivo foi enviado
-                $sqlupdate = "UPDATE users SET foto='$foto', nome='$nome', profissao='$profissao', facebook='$facebook', instagram='$instagram', twitter='$twitter' WHERE login='$login'";
+            if (!$resultado_select_foto) {
+                echo '<a href="index.php" class="btn btn-primary w-100">Voltar</a>';
+                die('<b>Query Inválida:</b>' . mysqli_error($conexao));
             } else {
-                // Se nenhum novo arquivo foi enviado, manter o valor atual do campo "imagem"
-                $sqlupdate = "UPDATE users SET nome='$nome', profissao='$profissao', facebook='$facebook', instagram='$instagram', twitter='$twitter' WHERE login='$login'";
+                $linha = mysqli_fetch_assoc($resultado_select_foto);
+                $nome_foto = $linha['foto'];
+
+                // Excluir a foto associada
+                $caminho_foto = BASEURL . "postagens/posts/" . $nome_foto; // Substitua pelo caminho real da sua pasta e arquivo
+                if($nome_foto !== "semfoto.png") {
+                    if (file_exists($caminho_foto) && is_file($caminho_foto)) {
+                        unlink($caminho_foto); 
+                    }
+                }
+
+                // Criar a consulta DELETE
+                $sqldelete = "DELETE FROM post WHERE codigo = $codigo";
+
+                // Executar a consulta DELETE
+                $resultado = mysqli_query($conexao, $sqldelete);
+
+                if (!$resultado) {
+                    echo '<a href="index.php" class="btn btn-primary w-100">Voltar</a>';
+                    die('<b>Query Inválida:</b>' . mysqli_error($conexao));
+                } else {
+                    include(ABSPATH . "carregando.php");
+                }
             }
 
-
-            // executando instrução SQL
-            $resultado = @mysqli_query($conexao, $sqlupdate);
-            if (!$resultado) {
-                echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
-                die('<b>Query Inválida:</b>' . @mysqli_error($conexao));
-            } else {
-                header("Location: logout.php");
-            }
             mysqli_close($conexao);
             ?>
+
         </main>
         <aside id="sidebar">
             <section id="search-bar">

@@ -1,19 +1,15 @@
     <?php $title = "Deletando comentário"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
-    <link rel="stylesheet" href="./css/style-post.css">
+    <link rel="stylesheet" href="<?php echo BASEURL ?>css/style-post.css">
     <div class="container">
         <main id="posts-container">
             <?php
-                include('conexao.php');
 
-
-                // recuperando a informação da URL
-			    // verifica se parâmetro está correto e dento da normalidade 
                 if (isset($_GET['comentario_id']) && is_numeric(base64_decode($_GET['comentario_id']))) {
                     $codigo = base64_decode($_GET['comentario_id']);
                 } else {
-                    header('Location: dashbord.php');
+                    header('Location: '. BASEURL . 'dashbord.php');
                 }
 
                 // criando a linha do  SELECT

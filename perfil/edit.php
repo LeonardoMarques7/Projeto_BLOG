@@ -1,16 +1,15 @@
 <?php $title = "Editando a Postagem"?>
-<?php include("inc/head.php")?>
+<?php include("../inc/head.php")?>
 <?php include(DBAPI); ?>
 <body>
-    <?php include("inc/header.php"); ?>
     <div class="container">
         <main id="posts-container">
             <div class="">
                 <div class="faixa-cards">
-                    <form action="editarPerfil.php" method="post" enctype="multipart/form-data">
+                    <form action="functions.php" method="post" enctype="multipart/form-data">
                         <div class="perfil">
                             <div class="d">
-                                <img src='./img/<?php echo $foto ?>' alt="" />
+                                <img src='<?= BASEURL ?>img/<?php echo $foto ?>' alt="" />
                                 <label class="custom-file-label" for="fileInput">
                                     <i class="fas fa-camera"></i> Selecionar Foto
                                 </label>
@@ -43,13 +42,7 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
-            </div>
-            <div class="container-post-user">
-                <?php
-                    include("pesquisador.php");
-                ?>
             </div>
         </main>
     </div>

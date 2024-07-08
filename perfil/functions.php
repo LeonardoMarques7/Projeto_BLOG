@@ -1,7 +1,7 @@
     <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
-    <link rel="stylesheet" href="./css/style-post.css">
+    <link rel="stylesheet" href="<?= BASEURL ?>css/style-post.css">
     <div class="container">
         <main id="posts-container">
             <?php
@@ -35,7 +35,7 @@
                 echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
                 die('<b>Query Inválida:</b>' . @mysqli_error($conexao));
             } else {
-                header("Location: logout.php");
+                header("Location: " . BASEURL . "conta/logout.php");
             }
             mysqli_close($conexao);
             ?>

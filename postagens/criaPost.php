@@ -1,5 +1,5 @@
     <?php $title = "Criando a Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
     <?php
 
@@ -19,7 +19,7 @@
     }
     $codigo = rand(10000, 99999);
     ?>
-    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
+    <?php echo '<link rel="stylesheet" href="' . BASEURL .'/css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <form name="produto" action="criarPost.php" class="form border rounded shadow-lg" method="post" enctype="multipart/form-data"><br><br>
@@ -135,7 +135,7 @@
                 <div class="d-grid col-md-9">
                     <button class="btn btn-primary" type="submit" title="Enviar" style="color: 444;"><i class="fa-regular fa-paper-plane"></i> Enviar</button>
                     <button class="btn btn-outline-danger shadow" type="reset" title="Limpar"><i class="fa-solid fa-trash"></i> Limpar</button>
-                    <a href="dashbord.php"><button class="btn btn-outline-danger shadow" type="button" title="Voltar"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
+                    <a href="<?= BASEURL ?>dashbord.php"><button class="btn btn-outline-danger shadow" type="button" title="Voltar"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
                 </div>
                 <br><br>
             </form>
@@ -144,7 +144,7 @@
             <section id="search-bar">
                 <a href="https://websai.cps.sp.gov.br/acesso/Login?ReturnUrl=%2FFormulario%2FLista">
                     <figure>
-                        <img src="./img/websai.png" alt="WebSai" title="CPS pesquisa do WEBSAI 2023" class="img-websai">
+                        <img src="<?php echo BASEURL ?>img/websai.png" alt="WebSai" title="CPS pesquisa do WEBSAI 2023" class="img-websai">
                     </figure>
                 </a>
             </section>

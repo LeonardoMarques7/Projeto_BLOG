@@ -1,8 +1,8 @@
     <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
 
-    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
+    <?php echo '<link rel="stylesheet" href="' . BASEURL .'css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
@@ -120,8 +120,8 @@
 
                         echo '<div class="comentario">';
                         echo "  <div class='img-title-coment'>";
-                        echo "     <img src='./img/$foto' class='image-coment' />";
-                        echo "      <a href='view.php? id=$comentario[id_user]'><h5 class='title-comentario'>$comentario[nome_user]</h5></a>";
+                        echo "     <img src='" . BASEURL . "/img/$foto' class='image-coment' />";
+                        echo "      <a href='" . BASEURL ."perfil/view.php?id=$comentario[id_user]'><h5 class='title-comentario'>$comentario[nome_user]</h5></a>";
                         if (isset($_SESSION['login'])) {
                             if ($_SESSION['login'] === $comentario['login_user']) {
                                 echo "<a href='viewDeleteComent.php?comentario_id=$comentario_id' class='btn btn-delete-coment'><i class='fa-solid fa-trash'></i></a>";
@@ -146,78 +146,77 @@
                 echo '</article>'
                 ?>
                 <script>
-                    
-            document.addEventListener('DOMContentLoaded', function() {
-                var likeButton = document.getElementById('likeButton');
-                var likeCount = document.getElementById('likeCount');
+                            
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var likeButton = document.getElementById('likeButton');
+                        var likeCount = document.getElementById('likeCount');
 
-                var userId = "<?php echo isset($_SESSION['id']) ? $_SESSION['id'] : ''; ?>";
+                        var userId = "<?php echo isset($_SESSION['id']) ? $_SESSION['id'] : ''; ?>";
 
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'checkUserLike.php', true);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'checkUserLike.php', true);
 
-                var formData = new FormData();
-                formData.append('codigo', "<?php echo $codigo; ?>");
-                formData.append('userId', userId);
+                        var formData = new FormData();
+                        formData.append('codigo', "<?php echo $codigo; ?>");
+                        formData.append('userId', userId);
 
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        var result = xhr.responseText;
+                        xhr.onload = function() {
+                            if (xhr.status === 200) {
+                                var result = xhr.responseText;
 
-                        if (result === 'true') {
-                            likeButton.innerHTML = '<i class="fas fa-heart like"></i>';
-                            likeButton.classList.add('liked');
-                        } else {
-                            likeButton.innerHTML = '<i class="fa-regular fa-heart like"></i>';
-                            likeButton.classList.remove('liked'); 
-                        }
-                    } else {
-                        console.error('Erro ao verificar as curtidas do usuário: ' + xhr.statusText);
-                    }
-                };
-
-                xhr.send(formData);
-
-                likeButton.addEventListener('click', function() {
-                    if (likeButton.classList.contains('liked')) {
-                        updateLikes('deslike');
-                    } else {
-                        updateLikes('like');
-                    }
-                });
-
-                function updateLikes(action) {
-                    var updateXHR = new XMLHttpRequest();
-                    updateXHR.open('POST', 'updateLikes.php', true);
-
-                    updateXHR.onload = function() {
-                        if (updateXHR.status === 200) {
-                            var likes = parseInt(updateXHR.responseText);
-                            likeCount.textContent = likes;
-
-                            if (action === 'like') {
-                                likeButton.innerHTML = '<i class="fas fa-heart like"></i>';
-                                likeButton.classList.add('liked'); 
-                            } else if (action === 'deslike') {
-                                likeButton.innerHTML = '<i class="fa-regular fa-heart like"></i>';
-                                likeButton.classList.remove('liked'); 
+                                if (result === 'true') {
+                                    likeButton.innerHTML = '<i class="fas fa-heart like"></i>';
+                                    likeButton.classList.add('liked');
+                                } else {
+                                    likeButton.innerHTML = '<i class="fa-regular fa-heart like"></i>';
+                                    likeButton.classList.remove('liked'); 
+                                }
+                            } else {
+                                console.error('Erro ao verificar as curtidas do usuário: ' + xhr.statusText);
                             }
-                        } else {
-                            console.error('Erro ao atualizar as curtidas: ' + updateXHR.statusText);
+                        };
+
+                        xhr.send(formData);
+
+                        likeButton.addEventListener('click', function() {
+                            if (likeButton.classList.contains('liked')) {
+                                updateLikes('deslike');
+                            } else {
+                                updateLikes('like');
+                            }
+                        });
+
+                        function updateLikes(action) {
+                            var updateXHR = new XMLHttpRequest();
+                            updateXHR.open('POST', 'updateLikes.php', true);
+
+                            updateXHR.onload = function() {
+                                if (updateXHR.status === 200) {
+                                    var likes = parseInt(updateXHR.responseText);
+                                    likeCount.textContent = likes;
+
+                                    if (action === 'like') {
+                                        likeButton.innerHTML = '<i class="fas fa-heart like"></i>';
+                                        likeButton.classList.add('liked'); 
+                                    } else if (action === 'deslike') {
+                                        likeButton.innerHTML = '<i class="fa-regular fa-heart like"></i>';
+                                        likeButton.classList.remove('liked'); 
+                                    }
+                                } else {
+                                    console.error('Erro ao atualizar as curtidas: ' + updateXHR.statusText);
+                                }
+                            };
+
+                            var updateFormData = new FormData();
+                            updateFormData.append('codigo', "<?php echo $codigo; ?>");
+                            updateFormData.append('userId', userId);
+                            updateFormData.append('action', action);
+
+                            updateXHR.send(updateFormData);
                         }
-                    };
-
-                    var updateFormData = new FormData();
-                    updateFormData.append('codigo', "<?php echo $codigo; ?>");
-                    updateFormData.append('userId', userId);
-                    updateFormData.append('action', action);
-
-                    updateXHR.send(updateFormData);
-                }
-            });
-            </script>
-
-        <section id="related-posts">
+                    });
+                </script>
+                <section id="related-posts">
                 <h2>Posts Relacionados</h2>
                 <div class="related-posts-container">
                     <?php
@@ -235,7 +234,7 @@
 
                             echo '<article class="related-post">';
                             echo "<img src='$imagemRelacionados' alt='Imagem do post relacionado' class='img-post-mais'>";
-                            echo '<a href="viewPost.php?codigo=' . $codigo_cripto_posts_relacionados . '"><h3 class="title">' . $dadosRelacionados['titulo'] . '</h3></a>';
+                            echo '<a href="' . BASEURL . 'postagens/index.php?codigo=' . $codigo_cripto_posts_relacionados . '"><h3 class="title">' . $dadosRelacionados['titulo'] . '</h3></a>';
                             echo '<p class="description description-max-w">' . $dadosRelacionados["assuntoIntro"] . '</p>';
                             echo '<p class="autor">' . $dadosRelacionados["autor"] . '</p>';
                             echo '<p class="date">Postado em: <strong>' . $dataFormatadaRelacionados . '</strong></p>';
@@ -253,7 +252,7 @@
             <section id="search-bar">
                 <a href="https://websai.cps.sp.gov.br/acesso/Login?ReturnUrl=%2FFormulario%2FLista">
                     <figure>
-                        <img src="./img/websai.png" alt="WebSai" title="CPS pesquisa do WEBSAI 2023" class="img-websai">
+                        <img src="<?= BASEURL ?>img/websai.png" alt="WebSai" title="CPS pesquisa do WEBSAI 2023" class="img-websai">
                     </figure>
                 </a>
             </section>

@@ -1,6 +1,6 @@
-<?php
+<?php 
+    include("../inc/database.php");
     session_start();
-    include('conexao.php');
 
     $codigo_post = $_POST['codigo'];
     $userId = $_SESSION['id'];

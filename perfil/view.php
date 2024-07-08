@@ -1,5 +1,5 @@
 <?php $title = "Postagem"?>
-<?php include("inc/head.php")?>
+<?php include("../inc/head.php")?>
 <?php include(DBAPI); ?>
 <body>
     <div class="container">
@@ -7,7 +7,6 @@
             <div class="faixa-cards">
                 <div class="faixa-cards">
                     <?php
-                    include("pesquisador.php");
 
                     $id = isset($_GET['id']) ? $_GET['id'] : null;
                     $nome = isset($_GET['nome']) ? $_GET['nome'] : null;
@@ -42,7 +41,7 @@
                         $foto = $dados['foto'];
 
                         echo '<div class="perfil">';
-                        echo "<img src='./img/$foto' alt='' />";
+                        echo "<img src='". BASEURL ."/img/$foto' alt='' />";
                         echo '<div class="text">';
                         echo '<h2>' . $dados["nome"] . '</h2>';
                         echo '<b>' . $dados["profissao"] . '</b>';
@@ -74,10 +73,10 @@
 
                                 // Exibir informações do post
                                 echo '<article class="post post-user">';
-                                echo "<img src='posts/$fotoPost' alt='Foto do Post'>";
+                                echo "<img src='" . BASEURL . "postagens/posts/$fotoPost' alt='Foto do Post' class='img-post-view'>";
                                 echo "<h3 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $post['titulo'] . "</a></h3>";
-                                echo '<p class="author-post-user"><b>' . $post["autor"] . '</b> | ' . $data_formatada . '</p>';
-                                echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!'>Ler mais</a>";
+                                echo '<p class="author-post-user"><b>' . $post["autor"] . '</b> | ' . $data_formatada . '</p><br>';
+                                echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!' class='btn btn-vermais'>Ler mais</a>";
                                 echo '</article>';
                             }
                         } else {
@@ -94,11 +93,18 @@
         </main>
         <aside id="sidebar">
             <section id="search-bar">
-                <h4>Busca</h4>
-                <div id="form">
-                    <input type="search" placeholder="Pesquise no blog" id="pesquisar">
-                    <button type="button" class="btn-busca" onclick="searchData()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                <a
+                    href="https://websai.cps.sp.gov.br/acesso/Login?ReturnUrl=%2FFormulario%2FLista"
+                >
+                    <figure>
+                        <img
+                            src="<?php echo BASEURL ?>img/websai.png"
+                            alt="WebSai"
+                            title="CPS pesquisa do WEBSAI 2023"
+                            class="img-websai"
+                        />
+                    </figure>
+                </a>
             </section>
             <section id="categories">
                 <h4>Links Úteis</h4>

@@ -2,6 +2,12 @@
 <?php include("inc/head.php") ?>
 <div class="container">
     <main id="posts-container">
+        <?php 
+            if(isset($_SESSION['message'])) {
+                echo '<div class="message">' . $_SESSION['message'] . '</div>';
+                clear_message();
+            }
+        ?>
         <?php
 
         include("pesquisador.php");
@@ -27,12 +33,12 @@
         
 
             echo '<article class="post">';
-            echo "<img src='posts/$foto' alt='Foto do Post'>";
-            echo "<h3 class='title' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $dados['titulo'] . "</a></h3>";
+            echo "<img src='" . BASEURL . "postagens/posts/$foto' alt='Foto do Post'>";
+            echo "<h3 class='title' title='Clique e veja mais!'><a href='" . BASEURL . "postagens/index.php?codigo=$codigo_base'>" . $dados['titulo'] . "</a></h3>";
             echo '<p class="description">' . $dados["assuntoIntro"] . '</p>';
             echo '<p class="tag-post" >' . '#' . $dados["tags"] . '</p>';
             echo '<p class="author">' . $dados["autor"] . ' | ' . $data_formatada . '</p>';
-            echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!'>Ler mais</a>";
+            echo "<a href='" . BASEURL ."postagens/index.php?codigo=$codigo_base' title='Clique e veja mais!'>Ler mais</a>";
             echo '</article>';
         }
         ?>

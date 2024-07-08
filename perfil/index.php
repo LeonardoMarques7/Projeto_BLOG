@@ -1,5 +1,5 @@
     <?php $title = "Perfil"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
 
     <body>
@@ -8,9 +8,9 @@
                 <div class="faixa-cards ">
                     <div class="faixa-cards">
                         <div class="perfil">
-                            <img src='./img/<?php echo $foto?>' alt="" />
+                            <img src='<?php echo BASEURL ?>img/<?php echo $foto?>' alt="" />
                             <div class="text">
-                                <h2><?php echo $_SESSION['nome']?><button class="button-view-edit"><a href="editPerfil.php" class="link-edit"><i class="fa-solid fa-pen"></i></a></button></h2>
+                                <h2><?php $id = $_SESSION['id']; echo $_SESSION['nome']?><button class="button-view-edit"><a href="edit.php" class="link-edit"><i class="fa-solid fa-pen"></i></a><button class="button-view-edit"><?php echo "<a href='delete.php?id=$id' class='link-edit'>" ?><i class="fa-solid fa-trash"></i></a></button></button></h2>
                                 <b><?php echo $_SESSION['profissao']?></b>
                                 <br>
                                 <br>
@@ -69,8 +69,8 @@
                                 $codigo_base = base64_encode($codigo);
 
                                 echo '<article class="post post-user">';
-                                echo "<img src='posts/$fotoPost ' alt='Foto do Post'>";
-                                echo "<h4 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $dados['titulo'] . "</a></h4>";
+                                echo "<img src='" . BASEURL . "postagens/posts/$fotoPost ' alt='Foto do Post'>";
+                                echo "<h3 class='title-post-user' title='Clique e veja mais!'><a href='viewPost.php?codigo=$codigo_base'>" . $dados['titulo'] . "</a></h3>";
                                 echo '<p class="date-post-user">' . $data_formatada . '</p>';
                                 echo "<a href='viewPost.php?codigo=$codigo_base' title='Clique e veja mais!' class='btn btn-vermais'>Ler mais</a>";
                                 echo '</article>';
@@ -88,7 +88,7 @@
                     >
                         <figure>
                             <img
-                                src="./img/websai.png"
+                                src="<?php echo BASEURL ?>img/websai.png"
                                 alt="WebSai"
                                 title="CPS pesquisa do WEBSAI 2023"
                                 class="img-websai"
@@ -119,14 +119,6 @@
                                     href="cursos.php"
                                     title="Cursos da Etec Fernando Prestes"
                                     >Cursos</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    href="./criadores.php"
-                                    title="Veja os Criadores!"
-                                    class="active"
-                                    >Criadores</a
                                 >
                             </li>
                             <li>

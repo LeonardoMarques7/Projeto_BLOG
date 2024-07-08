@@ -1,8 +1,8 @@
 <?php $title = "Postagem"?>
-<?php include("inc/head.php")?>
+<?php include("../inc/head.php")?>
 <?php include(DBAPI); ?>
 <body>
-    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
+    <?php echo '<link rel="stylesheet" href="'. BASEURL . 'css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
@@ -56,6 +56,46 @@
                 <div class="col text-start">
                     <b>Título do Post:</b><br><input class="form-control border-primary" type="text" name="titulo" id="titulo" maxlength="80" placeholder="Sem dados!" title="Não é possível Alterar no DELETE" value="<?php echo $dados['titulo']; ?>" readonly>
                 </div><br>
+                <script src="https://cdn.tiny.cloud/1/m603wx49uqdb6gnhe5qjqjqkb6ozgucd5p1bginqh8359f9v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            initializeTinyMCE(); 
+                        });
+
+                        function initializeTinyMCE() {
+                            tinymce.remove();
+
+                            tinymce.init({
+                                selector: 'textarea',
+                                plugins: 'paste link',
+                                toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat ',
+                                menubar: false,
+                                statusbar: false,
+                                language: 'pt_BR',
+                                tinycomments_mode: 'embedded',
+                                tinycomments_author: 'Author name',
+                                mergetags_list: [
+                                    { value: 'First.Name', title: 'First Name' },
+                                    { value: 'Email', title: 'Email' },
+                                ],
+                                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                                content_style: 'body { background-color: #f0f0f0; }',
+                                setup: function (editor) {
+                                    editor.on('init', function () {
+                                        // Remova o tamanho da textarea
+                                        editor.getContainer().style.height = '300px';
+                                        editor.getContainer().style.width = 'auto';
+                                        editor.getContainer().style.maxWidth = '500px';
+                                        editor.getContainer().style.marginRight = '20px';
+                                        editor.getContainer().style.marginTop = '5px';
+                                    });
+                                },
+                                forced_root_block_attrs: {
+                                    'class': 'description'
+                                }
+                            });
+                        }
+                    </script>
                 <div class="col text-start">
                     <b>Assunto Introdutório do Post:</b><br><textarea class="form-control border-primary" name="assunto" id="assunto" placeholder="Sem dados!" title="Não é possível Alterar no DELETE" readonly><?php echo $dados['assuntoIntro'] ?></textarea>
                 </div><br>
@@ -71,7 +111,7 @@
                 <div class="d-grid col-md-9">
                     <input type='hidden' name='codigo' value="<?php echo $dados['codigo']; ?>">
                     <button class="btn btn-primary" type="submit" title="Excluir" style="color: 444;"><i class="fa-solid fa-trash"></i> Excluir</button>
-                    <a href="dashbord.php"><button class="btn btn-outline-danger" type="button" title="Voltar" style="color: 444;"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
+                    <a href="<?= BASEURL ?>dashbord.php"><button class="btn btn-outline-danger" type="button" title="Voltar" style="color: 444;"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
                 </div>
                 <br><br>
             </form>

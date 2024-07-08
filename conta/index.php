@@ -1,5 +1,5 @@
     <?php $title = "Criando a Conta"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
 
     <div class="container">
@@ -11,7 +11,7 @@
                 clear_message();
             }
             ?>
-            <form class="form-cria-login" action="criarConta.php" method="post" enctype="multipart/form-data">
+            <form class="form-cria-login" action="criaPerfil.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label-cria-login">Nome<span class="span-form">*</span> </label>
                     <input type="text" name="nome" class="input-cria-login" required placeholder="Digite seu nome" required>
@@ -28,16 +28,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="label-cria-login">Tipo do usuário </label>
-                    <select name="tipoUser" class="select-cria-login tipoUser-select" required>
-                        <?php if (isset($_SESSION['login']) && $_SESSION['tipoUser'] === "admin") : ?>
-                            <option value="admin">Administrador</option>
-                        <?php endif; ?>
-                        <option value="user" selected>Usuário</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label class="label-cria-login">Profissão </label>
                     <input type="text" name="profissao" class="input-cria-login" placeholder="Digite sua profissão">
                 </div>
@@ -47,15 +37,15 @@
                     <summary class="label-cria-login summary-user">Quer adicionar suas redes socias?</summary>
                     <div class="form-group icon-input">
                         <label class="label-cria-login"><i class="fa-brands fa-instagram"></i></label>
-                        <input type="text" name="instagram" class="input-cria-login" placeholder="Digite seu Instagram">
+                        <input type="text" name="instagram" class="input-cria-login" placeholder="Digite a url do seu Instagram">
                     </div>
                     <div class="form-group icon-input">
                         <label class="label-cria-login"><i class="fa-brands fa-twitter"></i></label>
-                        <input type="text" name="twitter" class="input-cria-login" placeholder="Digite seu Twitter">
+                        <input type="text" name="twitter" class="input-cria-login" placeholder="Digite a url do seu Twitter">
                     </div>
                     <div class="form-group icon-input">
                         <label class="label-cria-login"><i class="fa-brands fa-facebook"></i></label>
-                        <input type="text" name="facebook" class="input-cria-login" placeholder="Digite seu Facebook">
+                        <input type="text" name="facebook" class="input-cria-login" placeholder="Digite a url do seu Facebook">
                     </div>
                 </details>
 

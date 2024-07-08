@@ -2,7 +2,7 @@
             <div class="row-footer">
                 <figure>
                     <img
-                        src="./img/288-logo-etec-fernando-prestes.svg"
+                        src="<?php echo BASEURL ?>img/288-logo-etec-fernando-prestes.svg"
                         alt=""
                         class="logo-fp-footer"
                     />

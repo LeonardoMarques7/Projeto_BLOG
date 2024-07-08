@@ -1,7 +1,6 @@
-<?php
-
-// Inclui o arquivo de conexão
-include 'inc/conexao.php';
+<?php 
+    include("../inc/database.php");
+    session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codigo']) && isset($_POST['userId']) && isset($_POST['action'])) {
     $codigo = $_POST['codigo'];
@@ -27,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codigo']) && isset($_
             $stmt_insert_like->close();
         }
     } elseif ($action === 'deslike') {
-        // Verificar se o usuário já curtiu o post
+        // Verificar se o usuário já curtiu o postKO
         $sql_check_like = "SELECT COUNT(*) FROM likes WHERE id_post = ? AND id_user = ?";
         $stmt_check_like = $conexao->prepare($sql_check_like);
         $stmt_check_like->bind_param('ii', $codigo, $userId);

@@ -1,22 +1,36 @@
-    <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+      
+    <?php $title = "Criando o Perfil"?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
     <div class="container">
         <main id="posts-container">
-        <?php
+            <?php
+				// recuperando 
+				$nome = $_POST['nome'];	
+				$login = $_POST['login'];	
+				$senha = $_POST['senha'];	
+				$tipoUser = $_POST['tipoUser'];	
+                $profissao = $_POST['profissao'];	
+				$instagram = $_POST['instagram'];	
+				$twitter = $_POST['twitter'];	
+				$facebook = $_POST['facebook'];	
+				$foto = $_FILES['arquivo']['name'];
+				$foto_tmp = $_FILES['arquivo']['tmp_name'];
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $login = $_POST['login'];
-
+				move_uploaded_file($foto_tmp, "img/" . $foto);
                 function criptografia($senha)
                 {
+                    $custo = "08";
+                    $salt = "Cf1f11ePArKlBJomM0F6aJ";
                 
+                    // Gera um hash baseado em bcrypt
                     $hash = crypt($senha, SALT);
                 
                     return $hash;
                 }
 
                 $senha = criptografia($_POST['senha']);
+
                 $recaptchaResponse = $_POST['g-recaptcha-response'];
 
                 $secret = RECAPTCHA_SECRET;
@@ -40,54 +54,36 @@
                 $responseKeys = json_decode($response, true);
 
                 if ($responseKeys['success']) {
-                    if ($conexao) {
-                        $sql = "SELECT * FROM users WHERE login = '$login' AND senha = '$senha'";
-                        $resultado = mysqli_query($conexao, $sql);
-
-                        if (mysqli_num_rows($resultado) > 0) {
-                            $_SESSION['login'] = $login;
-
-                            $row = mysqli_fetch_assoc($resultado);
-                            $_SESSION['foto'] = $row['foto'];
-                            $_SESSION['nome'] = $row['nome'];
-                            $_SESSION['id'] = $row['id'];
-                            $_SESSION['tipoUser'] = $row['tipoUser'];
-                            $_SESSION['profissao'] = $row['profissao'];
-                            $_SESSION['linkInsta'] = $row['instagram'];
-                            $_SESSION['linkTwitter'] = $row['twitter'];
-                            $_SESSION['linkFace'] = $row['facebook'];
-
-                            $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
-
-                            include("carregando.php");
-                        } else {
-                            $_SESSION['messageErrorLogin'] = "Error";
-                            header("Location: login.php");
-                            exit();
-                        }
-
-                        mysqli_close($conexao);
-                    } else {
-                        echo '<h3 class="card-title text-primary fw-bold">Falha ao conectar ao banco de dados!</h3>';
-                        echo '<center>';
-                        echo '<a href="index.php" class="text-primary border border-primary rounded-2 icon-link text-decoration-none text-center p-2 px-4 btn-clique">Tente Novamente ;)</a>';
-                        echo '</center>';
+                    if (!empty($foto)) {
+                        $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
                     }
+                    else {
+                        $foto = 'Semfoto.png';
+                        $sqlinsert = "INSERT INTO users (nome, login, senha, tipoUser, profissao, instagram, twitter, facebook, foto) VALUES ('$nome', '$login', '$senha', '$tipoUser', '$profissao','$instagram', '$twitter', '$facebook', '$foto')";
+                    }
+                    // executando instrução SQL
+                    $resultado = @mysqli_query($conexao, $sqlinsert);
+                    if (!$resultado) {
+                        echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
+                        die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
+                    } else {
+                        include(ABSPATH . "carregando.php");
+                    } 
                 } else {
                     $_SESSION['messageErrorLogin'] = 'Falha na validação do reCAPTCHA. Tente novamente.';
-                    header("Location: login.php");
+                    header("Location: " . BASEURL ."conta/index.php");
                     exit();
                 }
-            }
-            ?>
+				mysqli_close($conexao);
+			?>
         </main>
         <aside id="sidebar">
             <section id="search-bar">
-                <h4>Busca</h4>
-                <div id="form">
-                    <input type="search" placeholder="Pesquise no blog" id="pesquisar">
-                    <button type="button" class="btn-busca" onclick="searchData()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
+                <a href="https://websai.cps.sp.gov.br/acesso/Login?ReturnUrl=%2FFormulario%2FLista">
+                    <figure>
+                        <img src="./img/websai.png" alt="WebSai" title="CPS pesquisa do WEBSAI 2023" class="img-websai">
+                    </figure>
+                </a>
             </section>
             <section id="categories">
                 <h4>Links Úteis</h4>
@@ -103,11 +99,12 @@
             <section id="redes">
                 <h4>Redes Socias</h4>
                 <div id="tags-container-2">
-                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/etecfernandoprestes/" title="Instagram" id="instagram"><i class="fab fa-instagram"></i></a>   
                     <a href="https://www.facebook.com/etecfernando" title="Facebook" id="facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.youtube.com/@EtecFernandoPrestesCPS" title="Youtube" id="youtube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </section>
         </aside>
     </div>
+   
     <?php include(FOOTER_TEMPLATE); ?>

@@ -1,8 +1,8 @@
     <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
 <body>
-    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
+    <?php echo '<link rel="stylesheet" href="' . BASEURL .'css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
@@ -62,44 +62,44 @@
                 <div class="col text-start">
                     <script src="https://cdn.tiny.cloud/1/m603wx49uqdb6gnhe5qjqjqkb6ozgucd5p1bginqh8359f9v/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
                     <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        initializeTinyMCE(); 
-                    });
-
-                    function initializeTinyMCE() {
-                        tinymce.remove();
-
-                        tinymce.init({
-                            selector: 'textarea',
-                            plugins: 'paste link',
-                            toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat ',
-                            menubar: false,
-                            statusbar: false,
-                            language: 'pt_BR',
-                            tinycomments_mode: 'embedded',
-                            tinycomments_author: 'Author name',
-                            mergetags_list: [
-                                { value: 'First.Name', title: 'First Name' },
-                                { value: 'Email', title: 'Email' },
-                            ],
-                            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-                            content_style: 'body { background-color: #f0f0f0; }',
-                            setup: function (editor) {
-                                editor.on('init', function () {
-                                    // Remova o tamanho da textarea
-                                    editor.getContainer().style.height = '300px';
-                                    editor.getContainer().style.width = 'auto';
-                                    editor.getContainer().style.maxWidth = '500px';
-                                    editor.getContainer().style.marginRight = '20px';
-                                    editor.getContainer().style.marginTop = '5px';
-                                });
-                            },
-                            forced_root_block_attrs: {
-                                'class': 'description'
-                            }
+                        document.addEventListener("DOMContentLoaded", () => {
+                            initializeTinyMCE(); 
                         });
-                    }
-                </script>
+
+                        function initializeTinyMCE() {
+                            tinymce.remove();
+
+                            tinymce.init({
+                                selector: 'textarea',
+                                plugins: 'paste link',
+                                toolbar: 'undo redo | bold italic underline strikethrough | link | checklist numlist bullist | emoticons charmap | removeformat ',
+                                menubar: false,
+                                statusbar: false,
+                                language: 'pt_BR',
+                                tinycomments_mode: 'embedded',
+                                tinycomments_author: 'Author name',
+                                mergetags_list: [
+                                    { value: 'First.Name', title: 'First Name' },
+                                    { value: 'Email', title: 'Email' },
+                                ],
+                                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                                content_style: 'body { background-color: #f0f0f0; }',
+                                setup: function (editor) {
+                                    editor.on('init', function () {
+                                        // Remova o tamanho da textarea
+                                        editor.getContainer().style.height = '300px';
+                                        editor.getContainer().style.width = 'auto';
+                                        editor.getContainer().style.maxWidth = '500px';
+                                        editor.getContainer().style.marginRight = '20px';
+                                        editor.getContainer().style.marginTop = '5px';
+                                    });
+                                },
+                                forced_root_block_attrs: {
+                                    'class': 'description'
+                                }
+                            });
+                        }
+                    </script>
                     <b>Assunto Introdutório do Post:</b><br>
                     <textarea name="assuntoIntro" class="textareaAssunto" value='<?php echo $dados['assuntoIntro']; ?>'><?php echo $dados['assuntoIntro']; ?>
                     </textarea>
@@ -127,7 +127,7 @@
                 <div class="d-grid col-md-9">
                     <button class="btn btn-primary" type="submit" title="Enviar" style="color: 444;"><i class="fa-regular fa-paper-plane"></i> Enviar</button>
                     <button class="btn btn-outline-danger shadow" type="reset" title="Limpar"><i class="fa-solid fa-trash"></i> Limpar</button>
-                    <a href="dashbord.php"><button class="btn btn-outline-danger" type="button" title="Voltar"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
+                    <a href="<?php echo BASEURL ?>dashbord.php"><button class="btn btn-outline-danger" type="button" title="Voltar"><i class="fa-solid fa-rotate-left"></i> Cancelar</button></a>
                 </div>
                 <br><br>
             </form>

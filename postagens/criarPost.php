@@ -1,12 +1,10 @@
     <?php $title = "Criando a Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
 <body>
-    <?php include("inc/header.php") ?>
     <div class="container">
         <main id="posts-container">
             <?php
-				include('conexao.php');
 
                 if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                     // Se não estiver logado, redirecione para a página de login
@@ -49,7 +47,7 @@
 					echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
 					die('<b>Query Inválida:</b>' . @mysqli_error($conexao)); 
 				} else {
-                    include("carregando.php");
+                    include(ABSPATH . "carregando.php");
 				} 
 				mysqli_close($conexao);
 			?>

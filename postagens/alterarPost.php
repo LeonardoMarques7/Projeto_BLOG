@@ -1,7 +1,7 @@
     <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
-    <?php echo '<link rel="stylesheet" href="./css/style-post.css">' ?>
+    <?php echo '<link rel="stylesheet" href="' . BASEURL . 'css/style-post.css">' ?>
     <div class="container">
         <main id="posts-container">
             <?php
@@ -9,10 +9,10 @@
             if (!isset($_SESSION['login']) || $_SESSION['tipoUser'] !== "admin") {
                 // Se não estiver logado, redirecione para a página de login
                 $_SESSION['message'] = "Você precisa ser administrador!";
-                header("Location: login.php");
+                header("Location: " .  BASEURL ."conta/login.php");
                 exit;
             }
-            include('conexao.php');
+        
             $codigo = $_POST['codigo'];
 
             $titulo = $_POST['titulo'];
@@ -46,7 +46,7 @@
                 echo '<a href="index.php" class="btn btn-outline-primary w-100">Voltar</a>';
                 die('<b>Query Inválida:</b>' . @mysqli_error($conexao));
             } else {
-                include("carregando.php");
+                include(ABSPATH . "carregando.php");
             }
             mysqli_close($conexao);
             ?>
@@ -80,13 +80,4 @@
             </section>
         </aside>
     </div>
-    <footer>
-        <?php include("footer.php"); ?>
-    </footer>
-
-    <script src="./js/script.js"></script>
-    <script src="./js/awsome/all.min.js"></script>
-    <!-- Finalizando Seção de Projeto de Blog Semântico com HTML5 e CSS3 (23.08.2023) => {19:05}; -->
-</body>
-
-</html>
+    <?php include(FOOTER_TEMPLATE); ?>

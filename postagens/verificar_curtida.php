@@ -1,6 +1,6 @@
-<?php
+<?php 
+    include("../inc/database.php");
     session_start();
-    include('conexao.php');
 
     $id_post = $_GET['id_post'];
     $id_user = $_SESSION['id']; // Assumindo que o ID do usuário está armazenado na sessão

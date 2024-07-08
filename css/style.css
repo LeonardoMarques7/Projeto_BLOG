@@ -281,18 +281,20 @@ html {
 .container-post-user {
     margin-top: 1rem;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
+    width: 100%;
 }
 
-@media (max-width: 900px) {
-    .container-post-user {
-        flex-wrap: wrap;
+.post-user {
+    flex: 1 1 calc(50% - 10px); /* Calcula 50% da largura menos o gap */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
 
-    }
-    
+/* Ajusta para uma coluna em telas menores */
+@media (max-width: 900px) {
     .post-user {
-        width: 100%;
+        flex: 1 1 100%;
     }
 }
 
@@ -430,6 +432,7 @@ body {
     border-bottom: 1px solid #ccc;
     object-fit: cover;
 }
+
 
 .active {
     color: var(--main-color-blue);
@@ -822,6 +825,7 @@ button {
     color: #707070;
     font-size: 12px;
     margin-bottom: 1rem;
+    margin-top: .5rem;
 }
 
 .related-post .date {
@@ -1664,6 +1668,7 @@ li .remove:hover {
     padding: 6px 12px;
     cursor: pointer;
     margin-top: 5px;
+    width: 139px;
     background-color: #39f;
     color: #fff;
     border-radius: 5px;
@@ -2039,11 +2044,6 @@ input[type="file"]::file-selector-button:hover {
     animation: like-animation 0.5s ease-in-out;
 }
 
-.post-user img {
-    max-height: 120px;
-    object-fit: cover;
-}
-
 .btn-vermais {  
     border: 1px solid #39f;
     background-color: #39f;
@@ -2105,6 +2105,12 @@ input[type="file"]::file-selector-button:hover {
     color: #fff;
 }
 
+.post-user img{
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+}
+
 @media (max-width: 900px) {
     .post-user img{
         height: auto;
@@ -2113,5 +2119,9 @@ input[type="file"]::file-selector-button:hover {
 
     .title-post-user {
         font-size: 1.5rem;
+    }
+
+    .perfil {
+        align-items: normal;
     }
 }

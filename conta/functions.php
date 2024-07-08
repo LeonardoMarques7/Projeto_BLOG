@@ -1,5 +1,5 @@
     <?php $title = "Postagem"?>
-    <?php include("inc/head.php")?>
+    <?php include("../inc/head.php")?>
     <?php include(DBAPI); ?>
     <div class="container">
         <main id="posts-container">
@@ -59,10 +59,10 @@
 
                             $_SESSION['message'] = "Bem vindo(a) " . $_SESSION['nome'];
 
-                            include("carregando.php");
+                            include(ABSPATH . "carregando.php");
                         } else {
                             $_SESSION['messageErrorLogin'] = "Error";
-                            header("Location: login.php");
+                            header("Location: " . BASEURL . "conta/login.php");
                             exit();
                         }
 
