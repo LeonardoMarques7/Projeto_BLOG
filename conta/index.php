@@ -28,6 +28,26 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="label-cria-login">Tipo do usuário </label>
+                    <select name="tipoUser" class="select-cria-login tipoUser-select" required>
+                        <?php if (isset($_SESSION['login']) && $_SESSION['tipoUser'] === "admin") : ?>
+                            <option value="admin">Administrador</option>
+                        <?php endif; ?>
+                        <option value="user" selected>Usuário</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="label-cria-login">Gênero</label>
+                    <select name="tipoUser" class="select-cria-login tipoUser-select" required>
+                        <option value="feminino">Ferminino</option>
+                        <option value="masculino" >Masculino</option>
+                        <option value="neutro">Prefiro não informar</option>
+                    </select>
+                </div>
+
+
+
+                <div class="form-group">
                     <label class="label-cria-login">Profissão </label>
                     <input type="text" name="profissao" class="input-cria-login" placeholder="Digite sua profissão">
                 </div>
